@@ -1,0 +1,5 @@
+Bwl.Hardware.Serial
+Igor Koshelev (igor@lifemotion.ru)
+
+Extended interface for Serial Bus.
+Realizations for SerialPort, FTDI Devices.

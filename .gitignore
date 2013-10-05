@@ -1,0 +1,7 @@
+*.suo
+local.*
+temp.*
+debug.*
+bin
+dllOut
+obj

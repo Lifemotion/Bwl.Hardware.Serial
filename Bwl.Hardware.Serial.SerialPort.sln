@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Bwl.Hardware.Serial.SerialPort", "bwl.Hardware.Serial.SerialPort\Bwl.Hardware.Serial.SerialPort.vbproj", "{F67738C8-D03A-4722-BE92-DA6BABD293D5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{67F961E9-AAD0-4FBB-AD02-F854BEABF993} = {67F961E9-AAD0-4FBB-AD02-F854BEABF993}
+	EndProjectSection
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Bwl.Hardware.Serial.SerialPort.Test", "bwl.Hardware.Serial.SerialPort.Test\Bwl.Hardware.Serial.SerialPort.Test.vbproj", "{AB9A5334-1235-4A69-8FED-5ED534F8948E}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Bwl.Hardware.Serial.Common", "Bwl.Hardware.Serial.Common\Bwl.Hardware.Serial.Common.vbproj", "{67F961E9-AAD0-4FBB-AD02-F854BEABF993}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F67738C8-D03A-4722-BE92-DA6BABD293D5}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F67738C8-D03A-4722-BE92-DA6BABD293D5}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{F67738C8-D03A-4722-BE92-DA6BABD293D5}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{F67738C8-D03A-4722-BE92-DA6BABD293D5}.Debug|x86.ActiveCfg = Debug|x86
+		{F67738C8-D03A-4722-BE92-DA6BABD293D5}.Debug|x86.Build.0 = Debug|x86
+		{F67738C8-D03A-4722-BE92-DA6BABD293D5}.Release|Any CPU.ActiveCfg = Release|x86
+		{F67738C8-D03A-4722-BE92-DA6BABD293D5}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{F67738C8-D03A-4722-BE92-DA6BABD293D5}.Release|Mixed Platforms.Build.0 = Release|x86
+		{F67738C8-D03A-4722-BE92-DA6BABD293D5}.Release|x86.ActiveCfg = Release|x86
+		{F67738C8-D03A-4722-BE92-DA6BABD293D5}.Release|x86.Build.0 = Release|x86
+		{AB9A5334-1235-4A69-8FED-5ED534F8948E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{AB9A5334-1235-4A69-8FED-5ED534F8948E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{AB9A5334-1235-4A69-8FED-5ED534F8948E}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{AB9A5334-1235-4A69-8FED-5ED534F8948E}.Debug|x86.ActiveCfg = Debug|x86
+		{AB9A5334-1235-4A69-8FED-5ED534F8948E}.Debug|x86.Build.0 = Debug|x86
+		{AB9A5334-1235-4A69-8FED-5ED534F8948E}.Release|Any CPU.ActiveCfg = Release|x86
+		{AB9A5334-1235-4A69-8FED-5ED534F8948E}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{AB9A5334-1235-4A69-8FED-5ED534F8948E}.Release|Mixed Platforms.Build.0 = Release|x86
+		{AB9A5334-1235-4A69-8FED-5ED534F8948E}.Release|x86.ActiveCfg = Release|x86
+		{AB9A5334-1235-4A69-8FED-5ED534F8948E}.Release|x86.Build.0 = Release|x86
+		{67F961E9-AAD0-4FBB-AD02-F854BEABF993}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67F961E9-AAD0-4FBB-AD02-F854BEABF993}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67F961E9-AAD0-4FBB-AD02-F854BEABF993}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{67F961E9-AAD0-4FBB-AD02-F854BEABF993}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{67F961E9-AAD0-4FBB-AD02-F854BEABF993}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{67F961E9-AAD0-4FBB-AD02-F854BEABF993}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67F961E9-AAD0-4FBB-AD02-F854BEABF993}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67F961E9-AAD0-4FBB-AD02-F854BEABF993}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{67F961E9-AAD0-4FBB-AD02-F854BEABF993}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{67F961E9-AAD0-4FBB-AD02-F854BEABF993}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
