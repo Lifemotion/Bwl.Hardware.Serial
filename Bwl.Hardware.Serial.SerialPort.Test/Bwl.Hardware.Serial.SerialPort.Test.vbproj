@@ -104,7 +104,7 @@
       <Name>Bwl.Hardware.Serial.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\bwl.Hardware.Serial.SerialPort\Bwl.Hardware.Serial.SerialPort.vbproj">
-      <Project>{F67738C8-D03A-4722-BE92-DA6BABD293D5}</Project>
+      <Project>{f67738c8-d03a-4722-be92-da6babd293d5}</Project>
       <Name>Bwl.Hardware.Serial.SerialPort</Name>
     </ProjectReference>
   </ItemGroup>

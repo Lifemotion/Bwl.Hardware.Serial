@@ -50,8 +50,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="bwl.Framework">
-      <HintPath>..\..\..\Common Libs\bwl.Framework\bwl.Framework\dllOut\bwl.Framework.dll</HintPath>
+    <Reference Include="Bwl.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libs\bwl.Framework\bwl.Framework\dllOut\Bwl.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>

@@ -25,7 +25,7 @@ Partial Class SerialVisualiser
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SerialVisualiser))
         Me.lbState = New System.Windows.Forms.ListBox()
-        Me.LogWriterList1 = New LogWriterList()
+        Me.LogWriterList1 = New DatagridLogWriter()
         Me.refreshState = New System.Windows.Forms.Timer(Me.components)
         Me.view = New bwl.Hardware.Serial.Terminal()
         Me.SuspendLayout()
@@ -86,7 +86,7 @@ Partial Class SerialVisualiser
 
     End Sub
     Friend WithEvents lbState As System.Windows.Forms.ListBox
-    Friend WithEvents LogWriterList1 As LogWriterList
+    Friend WithEvents LogWriterList1 As DatagridLogWriter
     Friend WithEvents refreshState As System.Windows.Forms.Timer
     Friend WithEvents view As bwl.Hardware.Serial.Terminal
 End Class

@@ -24,7 +24,7 @@ Partial Class SerialTerminal
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SerialTerminal))
-        Me.LogWriterList1 = New LogWriterList()
+        Me.LogWriterList1 = New DatagridLogWriter()
         Me.gbConnect = New System.Windows.Forms.GroupBox()
         Me.cbAutoConnect = New System.Windows.Forms.CheckBox()
         Me.cbAutoReadBytes = New System.Windows.Forms.CheckBox()
@@ -345,7 +345,7 @@ Partial Class SerialTerminal
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents LogWriterList1 As LogWriterList
+    Friend WithEvents LogWriterList1 As DatagridLogWriter
     Friend WithEvents gbConnect As System.Windows.Forms.GroupBox
     Friend WithEvents cbAutoConnect As System.Windows.Forms.CheckBox
     Friend WithEvents cbAutoReadBytes As System.Windows.Forms.CheckBox
