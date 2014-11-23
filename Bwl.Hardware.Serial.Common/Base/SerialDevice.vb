@@ -302,7 +302,8 @@ Public MustInherit Class SerialDevice
     Private Sub AutoReaderThread()
         Dim lastBytesCount As UInteger
         Do
-            Dim raiseArrived = False
+            Try
+                Dim raiseArrived = False
             Dim raiseRead = False
             Dim bytesCount As Integer
             Dim bytes() As Byte = Nothing
@@ -324,7 +325,11 @@ Public MustInherit Class SerialDevice
                 End If
             End SyncLock
             If raiseRead Then RaiseEvent BytesRead(Me, bytes, True)
-            If raiseArrived Then RaiseEvent BytesArrived(Me, bytesCount)
+                If raiseArrived Then RaiseEvent BytesArrived(Me, bytesCount)
+
+            Catch ex As Exception
+
+            End Try
         Loop
     End Sub
 
@@ -346,7 +351,6 @@ Public MustInherit Class SerialDevice
         Return arr(0)
     End Function
 
-
     Public Function TryConnect() As Boolean Implements ISerialDevice.TryConnect
         Try
             Connect()
@@ -361,6 +365,4 @@ Public MustInherit Class SerialDevice
             Return _logger
         End Get
     End Property
-
-
 End Class

@@ -5,3 +5,4 @@ debug.*
 bin
 dllOut
 obj
+*-debug
