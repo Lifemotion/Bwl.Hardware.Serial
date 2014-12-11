@@ -55,6 +55,16 @@ Bwl.Framework
  Класс, представляющий ini-файл. Выполняет чтение и запись параметров.
  </summary>
 	<remarks></remarks>
+</member><member name="M:Bwl.Framework.Image.SaveImage(System.String)">
+	<summary>Сохранить кадр по указанному пути.</summary>
+</member><member name="M:Bwl.Framework.Image.GetBitmap">
+	<summary>
+ Скопировать изображение
+ </summary>
+</member><member name="P:Bwl.Framework.Image.RowDataBytes">
+	<summary>Сырые данные изобаржения</summary>
+</member><member name="T:Bwl.Framework.Image">
+	<summary>Изображение</summary>
 </member><member name="M:Bwl.Framework.CryptoTools.Des3Encode(System.String,System.Byte[])">
 	<summary>
 	</summary>
@@ -62,12 +72,19 @@ Bwl.Framework
 	<param name="key"></param>
 	<returns></returns>
 	<remarks>Вначале добавляется 16 байт IV</remarks>
+</member><member name="P:Bwl.Framework.SettingsStorageBase.IsReadOnly">
+	<summary>
+ Можно ли изменять данные в хранилище.
+ </summary>
+	<value></value>
+	<returns></returns>
+	<remarks></remarks>
 </member><member name="T:Bwl.Framework.SettingsStorageBase">
 	<summary>
  Базовый класс хранилища настроек.
  </summary>
 	<remarks></remarks>
-</member><member name="M:Bwl.Framework.SettingsStorage.#ctor(Bwl.Framework.SettingsStorage,System.String,System.String)">
+</member><member name="M:Bwl.Framework.SettingsStorage.#ctor(Bwl.Framework.SettingsStorage,System.String,System.String,System.Boolean)">
 	<summary>
  Создать хранилище-подкатегорию. 
  </summary>
@@ -100,12 +117,13 @@ Bwl.Framework
  Хранилище настроек.
  </summary>
 	<remarks></remarks>
-</member><member name="M:Bwl.Framework.SettingsStorageRoot.#ctor(Bwl.Framework.ISettingsReaderWriter,System.String)">
+</member><member name="M:Bwl.Framework.SettingsStorageRoot.#ctor(Bwl.Framework.ISettingsReaderWriter,System.String,System.Boolean)">
 	<summary>
  Создать новое хранилище настроек, являющееся корневым.
  </summary>
 	<param name="defaultWriter">Интерфейс сохранения\загрузки настроек по умолчанию.</param>
 	<param name="rootName">Имя корневой категории настроек.</param>
+	<param name="isReadOnly">Данные в хранилище только для чтения.</param>
 	<remarks></remarks>
 </member><member name="M:Bwl.Framework.SettingsStorageRoot.#ctor">
 	<summary>
@@ -133,6 +151,10 @@ Bwl.Framework
 	<value></value>
 	<returns></returns>
 	<remarks></remarks>
+</member><member name="P:Bwl.Framework.PasswordSetting.Value">
+	<summary>
+ Не является парллем, используйте поле Pass.
+ </summary>
 </member><member name="P:Bwl.Framework.My.Resources.Resources.ResourceManager">
 	<summary>
   Возвращает кэшированный экземпляр ResourceManager, использованный этим классом.
@@ -154,6 +176,26 @@ Bwl.Framework
 </member><member name="T:Bwl.Framework.Logger">
 	<summary>
  Класс, представляющий средство для иерархичного ведения журнала событий в программе.
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Bwl.Framework.StateAttribute">
+	<summary>
+ Поле с состоянием объекта
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Bwl.Framework.ParameterAttribute">
+	<summary>
+ Поле с настройкой объекта
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Bwl.Framework.DisplayAttribute">
+	<summary>
+ Отображаемое поле или свойтсво объекта
+ </summary>
+	<remarks></remarks>
+</member><member name="T:Bwl.Framework.ImageAttr">
+	<summary>
+ Отображаемое поле или свойтсво объекта
  </summary>
 	<remarks></remarks>
 </member>

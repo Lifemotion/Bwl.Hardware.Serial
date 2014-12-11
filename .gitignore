@@ -3,6 +3,7 @@ local.*
 temp.*
 debug.*
 bin
-dllOut
+debug
+release
 obj
-*-debug
+
