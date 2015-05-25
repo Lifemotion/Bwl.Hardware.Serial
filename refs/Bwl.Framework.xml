@@ -151,22 +151,32 @@ Bwl.Framework
 	<value></value>
 	<returns></returns>
 	<remarks></remarks>
+</member><member name="M:Bwl.Framework.SettingsStorageBackup.#ctor(System.String,Bwl.Framework.Logger,Bwl.Framework.SettingsStorage)">
+	<summary>Создать новое хранилище настроек, являющееся корневым.</summary>
+	<param name="settingsFolder">Путь к настройкам.</param>
+	<param name="logger">Логгер.</param>
+</member><member name="P:Bwl.Framework.SettingsStorageBackup.BackupAtStart">
+	<summary>Включить архивацию при старте. По-умолчанию включено.</summary>
+</member><member name="P:Bwl.Framework.SettingsStorageBackup.AutoBackup">
+	<summary>Включить автоархивацию. По-умолчанию выключено.</summary>
+</member><member name="P:Bwl.Framework.SettingsStorageBackup.AutoBackupInterval">
+	<summary>Интервал автоархивации в секундах.</summary>
 </member><member name="P:Bwl.Framework.PasswordSetting.Value">
 	<summary>
  Не является парллем, используйте поле Pass.
  </summary>
 </member><member name="P:Bwl.Framework.My.Resources.Resources.ResourceManager">
 	<summary>
-  Returns the cached ResourceManager instance used by this class.
+  Возвращает кэшированный экземпляр ResourceManager, использованный этим классом.
 </summary>
 </member><member name="P:Bwl.Framework.My.Resources.Resources.Culture">
 	<summary>
-  Overrides the current thread's CurrentUICulture property for all
-  resource lookups using this strongly typed resource class.
+  Перезаписывает свойство CurrentUICulture текущего потока для всех
+  обращений к ресурсу с помощью этого класса ресурса со строгой типизацией.
 </summary>
 </member><member name="T:Bwl.Framework.My.Resources.Resources">
 	<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
+  Класс ресурса со строгой типизацией для поиска локализованных строк и т.д.
 </summary>
 </member><member name="M:Bwl.Framework.Logger.#ctor">
 	<summary>
