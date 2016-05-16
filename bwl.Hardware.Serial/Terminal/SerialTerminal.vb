@@ -1,12 +1,10 @@
 ﻿Public Class SerialTerminal
     Private WithEvents _device As bwl.Hardware.Serial.SerialDevice
-    Private _logger As New Logger
     Sub New(ByVal device As SerialDevice)
         ' Этот вызов является обязательным для конструктора.
         InitializeComponent()
         _device = device
-        _logger.ConnectWriter(LogWriterList1)
-        _logger.AddMessage("Создан: " + TypeName(device))
+        '  _logger.AddMessage("Создан: " + TypeName(device))
         ' Добавьте все инициализирующие действия после вызова InitializeComponent().
         RefreshState()
         tabsSend.Enabled = False
@@ -39,7 +37,7 @@
             Try
                 _device.Connect()
             Catch ex As Exception
-                _logger.AddError(ex.Message)
+                '    _logger.AddError(ex.Message)
             End Try
         Else
             _device.Disconnect()
@@ -47,20 +45,20 @@
     End Sub
 
     Private Sub _device_BytesArrived(from As SerialDevice, count As Integer) Handles _device.BytesArrived
-        _logger.AddDebug("Пришло байт: " + count.ToString)
+        '  _logger.AddDebug("Пришло байт: " + count.ToString)
     End Sub
 
     Private Sub _device_BytesRead(from As SerialDevice, bytes() As Byte, fromAutoRead As Boolean) Handles _device.BytesRead
-        _logger.AddDebug("Прочитано байт: " + bytes.Length.ToString + ", авточтение: " + fromAutoRead.ToString)
+        '   _logger.AddDebug("Прочитано байт: " + bytes.Length.ToString + ", авточтение: " + fromAutoRead.ToString)
         view.AddReceived(bytes)
     End Sub
 
     Private Sub _device_DeviceConnected(from As SerialDevice) Handles _device.DeviceConnected
-        _logger.AddMessage("Устройство подключено.")
+        '   _logger.AddMessage("Устройство подключено.")
     End Sub
 
     Private Sub _device_DeviceDisconnected(from As SerialDevice, reason As DisconnectReason) Handles _device.DeviceDisconnected
-        _logger.AddMessage("Устройство отключено: " + reason.ToString)
+        '     _logger.AddMessage("Устройство отключено: " + reason.ToString)
     End Sub
 
     Private Sub input_KeyUp(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles input.KeyDown

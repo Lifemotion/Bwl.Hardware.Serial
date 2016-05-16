@@ -41,7 +41,7 @@ Public Class SerialVisualiser
             AddHandler _serial.PropertiesChanged, AddressOf PropertiesChanged
             AddHandler _serial.BytesSent, AddressOf BytesSent
             AddHandler _serial.BytesRead, AddressOf BytesRead
-            If _serial.Logger IsNot Nothing Then _serial.Logger.ConnectWriter(Me.LogWriterList1)
+            '  If _serial.Logger IsNot Nothing Then _serial.Logger.ConnectWriter(Me.LogWriterList1)
         End If
     End Sub
 

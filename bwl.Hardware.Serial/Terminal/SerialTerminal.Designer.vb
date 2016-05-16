@@ -24,7 +24,6 @@ Partial Class SerialTerminal
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SerialTerminal))
-        Me.LogWriterList1 = New DatagridLogWriter()
         Me.gbConnect = New System.Windows.Forms.GroupBox()
         Me.cbAutoConnect = New System.Windows.Forms.CheckBox()
         Me.cbAutoReadBytes = New System.Windows.Forms.CheckBox()
@@ -50,28 +49,13 @@ Partial Class SerialTerminal
         Me.input = New System.Windows.Forms.TextBox()
         Me.tpHexSend = New System.Windows.Forms.TabPage()
         Me.refreshTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.view = New bwl.Hardware.Serial.Terminal()
+        Me.view = New Bwl.Hardware.Serial.Terminal()
         Me.gbConnect.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.tabsSend.SuspendLayout()
         Me.tpSendStrings.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'LogWriterList1
-        '
-        Me.LogWriterList1.FilterText = ""
-        Me.LogWriterList1.Location = New System.Drawing.Point(0, 404)
-        Me.LogWriterList1.LogEnabled = True
-        Me.LogWriterList1.Margin = New System.Windows.Forms.Padding(0)
-        Me.LogWriterList1.Name = "LogWriterList1"
-        Me.LogWriterList1.ShowDebug = False
-        Me.LogWriterList1.ShowErrors = True
-        Me.LogWriterList1.ShowInformation = True
-        Me.LogWriterList1.ShowMessages = True
-        Me.LogWriterList1.ShowWarnings = True
-        Me.LogWriterList1.Size = New System.Drawing.Size(815, 151)
-        Me.LogWriterList1.TabIndex = 7
         '
         'gbConnect
         '
@@ -325,11 +309,10 @@ Partial Class SerialTerminal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(817, 553)
+        Me.ClientSize = New System.Drawing.Size(817, 407)
         Me.Controls.Add(Me.tabsSend)
         Me.Controls.Add(Me.view)
         Me.Controls.Add(Me.TabControl1)
-        Me.Controls.Add(Me.LogWriterList1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -345,7 +328,6 @@ Partial Class SerialTerminal
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents LogWriterList1 As DatagridLogWriter
     Friend WithEvents gbConnect As System.Windows.Forms.GroupBox
     Friend WithEvents cbAutoConnect As System.Windows.Forms.CheckBox
     Friend WithEvents cbAutoReadBytes As System.Windows.Forms.CheckBox

@@ -14,8 +14,8 @@
         funcs.writeFunction = AddressOf WriteFunction
         funcs.writeOneFunction = AddressOf WriteByteFunction
         funcs.getRxBufferLengthFunction = AddressOf GetRxCount
-        Init("DEV[#]", "", funcs, New Logger)
-        Logger.AddMessage("Класс SerialEmulator создан.")
+        Init("DEV[#]", "", funcs)
+        '   Logger.AddMessage("Класс SerialEmulator создан.")
         DeviceAddress = "DEV1"
     End Sub
 
@@ -23,18 +23,18 @@
 
     Private Sub ConnectFunction()
         If EmuCanConnect Then
-            Logger.AddMessage("Connected by request")
+            '      Logger.AddMessage("Connected by request")
         Else
             Throw New Exception("Emualtor CanConnect=false")
         End If
     End Sub
 
     Private Sub DisconnectFunction(reason As DisconnectReason)
-        Logger.AddMessage("Disconnected by " + reason.ToString)
+        '       Logger.AddMessage("Disconnected by " + reason.ToString)
     End Sub
 
     Private Function PingFunction() As Boolean
-        Logger.AddDebug("Ping requested: true")
+        '      Logger.AddDebug("Ping requested: true")
         Return True
     End Function
 

@@ -49,12 +49,6 @@ Public Class FastSerialPort
         End Get
     End Property
 
-    Public ReadOnly Property Logger As Logger Implements ISerialDevice.Logger
-        Get
-            Return Nothing
-        End Get
-    End Property
-
     Public Event PropertiesChanged() Implements ISerialDevice.PropertiesChanged
 
     Public Function Read() As Byte Implements ISerialDevice.Read

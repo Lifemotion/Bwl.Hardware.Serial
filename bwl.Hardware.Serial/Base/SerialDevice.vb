@@ -34,7 +34,6 @@ Public MustInherit Class SerialDevice
     Private _readThread As New Thread(AddressOf AutoReaderThread)
     Private _pingThread As New Thread(AddressOf AutoReaderThread)
     Private _autoConnectThread As New Thread(AddressOf AutoReaderThread)
-    Private _logger As New Logger
     Dim _autoConnect As Boolean
 
     Public Event BytesArrived(from As SerialDevice, ByVal count As Integer) Implements ISerialDevice.BytesArrived
@@ -74,11 +73,10 @@ Public MustInherit Class SerialDevice
         _readThread.Start()
     End Sub
 
-    Protected Sub Init(deviceAddressFormat As String, deviceParametersFormat As String, workingFunctions As WorkFunctions, logger As Logger)
+    Protected Sub Init(deviceAddressFormat As String, deviceParametersFormat As String, workingFunctions As WorkFunctions)
         _workFunctions = workingFunctions
         _deviceAddressFormat = deviceAddressFormat
         _deviceParametersFormat = deviceParametersFormat
-        _logger = logger
     End Sub
 
     Public Property DeviceParameters As String Implements ISerialDevice.DeviceParameters
@@ -360,9 +358,4 @@ Public MustInherit Class SerialDevice
         End Try
     End Function
 
-    Public ReadOnly Property Logger As Logger Implements ISerialDevice.Logger
-        Get
-            Return _logger
-        End Get
-    End Property
 End Class

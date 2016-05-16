@@ -1,7 +1,6 @@
 ﻿Imports FTD2XX_NET
 Imports FTD2XX_NET.FTDI
 Imports System.Threading
-Imports Bwl.Framework
 
 Public Class FTDIUsbDevice
     Inherits SerialDevice
@@ -31,7 +30,7 @@ Public Class FTDIUsbDevice
         funcs.writeFunction = AddressOf WriteRealization
         funcs.writeOneFunction = AddressOf WriteByteFunction
         funcs.getRxBufferLengthFunction = AddressOf GetRxBytesAvailableRealization
-        Init("[VID][PID]", "", funcs, New Logger)
+        Init("[VID][PID]", "", funcs)
     End Sub
     ''' <summary>
     ''' Проверяет состояние USB-модуля. Вызывается таймером pingTimer

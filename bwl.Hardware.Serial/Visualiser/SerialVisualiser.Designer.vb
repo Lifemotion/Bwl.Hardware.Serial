@@ -25,9 +25,8 @@ Partial Class SerialVisualiser
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SerialVisualiser))
         Me.lbState = New System.Windows.Forms.ListBox()
-        Me.LogWriterList1 = New DatagridLogWriter()
         Me.refreshState = New System.Windows.Forms.Timer(Me.components)
-        Me.view = New bwl.Hardware.Serial.Terminal()
+        Me.view = New Bwl.Hardware.Serial.Terminal()
         Me.SuspendLayout()
         '
         'lbState
@@ -39,25 +38,8 @@ Partial Class SerialVisualiser
         Me.lbState.ItemHeight = 11
         Me.lbState.Location = New System.Drawing.Point(0, 4)
         Me.lbState.Name = "lbState"
-        Me.lbState.Size = New System.Drawing.Size(201, 246)
+        Me.lbState.Size = New System.Drawing.Size(201, 257)
         Me.lbState.TabIndex = 0
-        '
-        'LogWriterList1
-        '
-        Me.LogWriterList1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LogWriterList1.FilterText = ""
-        Me.LogWriterList1.Location = New System.Drawing.Point(0, 257)
-        Me.LogWriterList1.LogEnabled = True
-        Me.LogWriterList1.Margin = New System.Windows.Forms.Padding(0)
-        Me.LogWriterList1.Name = "LogWriterList1"
-        Me.LogWriterList1.ShowDebug = False
-        Me.LogWriterList1.ShowErrors = True
-        Me.LogWriterList1.ShowInformation = True
-        Me.LogWriterList1.ShowMessages = True
-        Me.LogWriterList1.ShowWarnings = True
-        Me.LogWriterList1.Size = New System.Drawing.Size(903, 216)
-        Me.LogWriterList1.TabIndex = 2
         '
         'refreshState
         '
@@ -75,9 +57,8 @@ Partial Class SerialVisualiser
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(905, 476)
+        Me.ClientSize = New System.Drawing.Size(905, 264)
         Me.Controls.Add(Me.view)
-        Me.Controls.Add(Me.LogWriterList1)
         Me.Controls.Add(Me.lbState)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "SerialVisualiser"
@@ -86,7 +67,6 @@ Partial Class SerialVisualiser
 
     End Sub
     Friend WithEvents lbState As System.Windows.Forms.ListBox
-    Friend WithEvents LogWriterList1 As DatagridLogWriter
     Friend WithEvents refreshState As System.Windows.Forms.Timer
     Friend WithEvents view As bwl.Hardware.Serial.Terminal
 End Class

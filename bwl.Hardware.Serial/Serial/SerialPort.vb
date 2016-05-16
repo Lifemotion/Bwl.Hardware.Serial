@@ -55,6 +55,6 @@ Public Class SerialPort
         funcs.writeFunction = AddressOf WriteFunction
         funcs.writeOneFunction = AddressOf WriteByteFunction
         funcs.getRxBufferLengthFunction = AddressOf GetRxCount
-        Init("DEV[#]", "", funcs, New Logger)
+        Init("DEV[#]", "", funcs)
     End Sub
 End Class

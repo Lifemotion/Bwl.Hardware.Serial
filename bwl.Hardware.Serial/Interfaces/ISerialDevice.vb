@@ -23,7 +23,6 @@ Public Interface ISerialDevice
     ReadOnly Property ReceivedBufferCount() As Integer
     ReadOnly Property DeviceAddressFormat As String
     ReadOnly Property IsConnected() As Boolean
-    ReadOnly Property Logger() As Logger
 
     Sub Connect()
     Sub Disconnect()
