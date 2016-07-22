@@ -2,41 +2,41 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>
     </ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AB9A5334-1235-4A69-8FED-5ED534F8948E}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <StartupObject>Sub Main</StartupObject>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{67F961E9-AAD0-4FBB-AD02-F854BEABF993}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <RootNamespace>Bwl.Hardware.Serial</RootNamespace>
-    <AssemblyName>Bwl.Hardware.Serial.SerialPort.Test</AssemblyName>
+    <AssemblyName>Bwl.Hardware.Serial</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>WindowsFormsWithCustomSubMain</MyType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>..\debug\testapp\</OutputPath>
-    <DocumentationFile>Bwl.Hardware.Serial.SerialPort.Test.xml</DocumentationFile>
+    <OutputPath>..\debug\dll-mono\</OutputPath>
+    <DocumentationFile>Bwl.Hardware.Serial.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <Prefer32Bit>true</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
-    <OutputPath>..\release\testapp\</OutputPath>
-    <DocumentationFile>Bwl.Hardware.Serial.SerialPort.Test.xml</DocumentationFile>
+    <OutputPath>..\release\dll-mono\</OutputPath>
+    <DocumentationFile>Bwl.Hardware.Serial.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <Prefer32Bit>true</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -52,6 +52,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
@@ -60,10 +61,12 @@
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />
     <Import Include="System.Diagnostics" />
-    <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestRun.vb" />
+    <Compile Include="Interfaces\ISerialDevice.vb" />
+    <Compile Include="Interfaces\ISerialDeviceSence.vb" />
+    <Compile Include="Interfaces\ISerialDeviceSignals.vb" />
+    <Compile Include="Base\SerialDevice.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -79,6 +82,27 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Emulator\SerialEmulator.vb" />
+    <Compile Include="Serial\FastSerialPort.vb" />
+    <Compile Include="Serial\SerialPort.vb" />
+    <Compile Include="Terminal\Terminal.Designer.vb">
+      <DependentUpon>Terminal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Terminal\Terminal.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Terminal\SerialTerminal.Designer.vb">
+      <DependentUpon>SerialTerminal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Terminal\SerialTerminal.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Visualiser\SerialVisualiser.Designer.vb">
+      <DependentUpon>SerialVisualiser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visualiser\SerialVisualiser.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -87,9 +111,17 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Terminal\Terminal.resx">
+      <DependentUpon>Terminal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Terminal\SerialTerminal.resx">
+      <DependentUpon>SerialTerminal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Visualiser\SerialVisualiser.resx">
+      <DependentUpon>SerialVisualiser.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -101,10 +133,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\bwl.Hardware.Serial\Bwl.Hardware.Serial.Mono.vbproj">
-      <Project>{67f961e9-aad0-4fbb-ad02-f854beabf993}</Project>
-      <Name>Bwl.Hardware.Serial.Mono</Name>
-    </ProjectReference>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
