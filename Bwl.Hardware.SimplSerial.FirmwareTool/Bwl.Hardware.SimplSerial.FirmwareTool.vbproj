@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DF7F64BC-32B4-410F-99C8-396EAEEA1DCC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>Bwl.Hardware.SimplSerial.My.MyApplication</StartupObject>
+    <RootNamespace>Bwl.Hardware.SimplSerial</RootNamespace>
+    <AssemblyName>SsFirmwareTool</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\debug\SS Firmware Tool\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>None</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>false</Optimize>
+    <OutputPath>..\release\SS Firmware Tool\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Download droit.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedFw\Logger\Interface\ILoggerChilds.vb">
+      <Link>EmbeddedFw\ILoggerChilds.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedFw\Logger\Interface\ILoggerDispatcher.vb">
+      <Link>EmbeddedFw\ILoggerDispatcher.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedFw\Logger\Interface\ILoggerReceiver.vb">
+      <Link>EmbeddedFw\ILoggerReceiver.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedFw\Logger\Logger.vb">
+      <Link>EmbeddedFw\Logger.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedFw\Logger\LogWriters\Interface\ILogWriter.vb">
+      <Link>EmbeddedFw\ILogWriter.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedFw\Logger\LogWriters\Interface\LogEventType.vb">
+      <Link>EmbeddedFw\LogEventType.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedFw\Logger\LogWriters\Realizations\ConsoleLogWriter.vb">
+      <Link>EmbeddedFw\ConsoleLogWriter.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedFw\Logger\LogWriters\Realizations\DatagridLogWriter.Designer.vb">
+      <Link>EmbeddedFw\DatagridLogWriter.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedFw\Logger\LogWriters\Realizations\DatagridLogWriter.vb">
+      <Link>EmbeddedFw\DatagridLogWriter.vb</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedFw\Logger\LogWriters\Realizations\FormLogInfo.Designer.vb">
+      <Link>EmbeddedFw\FormLogInfo.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedFw\Logger\LogWriters\Realizations\FormLogInfo.vb">
+      <Link>EmbeddedFw\FormLogInfo.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\FirmwareUploader.vb">
+      <Link>EmbeddedSimplSerial\FirmwareUploader.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Results\DeviceInfo.vb">
+      <Link>EmbeddedSimplSerial\DeviceInfo.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Results\SSRequest.vb">
+      <Link>EmbeddedSimplSerial\SSRequest.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Results\SSResponse.vb">
+      <Link>EmbeddedSimplSerial\SSResponse.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\SimplSerialBus.vb">
+      <Link>EmbeddedSimplSerial\SimplSerialBus.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\SimplSerialManager.vb">
+      <Link>EmbeddedSimplSerial\SimplSerialManager.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\ByteMonitor.Designer.vb">
+      <Link>EmbeddedSimplSerial\ByteMonitor.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\ByteMonitor.vb">
+      <Link>EmbeddedSimplSerial\ByteMonitor.vb</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\CodeExecutor.designer.vb">
+      <Link>EmbeddedSimplSerial\CodeExecutor.designer.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\CodeExecutor.vb">
+      <Link>EmbeddedSimplSerial\CodeExecutor.vb</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\Crc16.vb">
+      <Link>EmbeddedSimplSerial\Crc16.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\Crc8.vb">
+      <Link>EmbeddedSimplSerial\Crc8.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\HexToBinConverter.vb">
+      <Link>EmbeddedSimplSerial\HexToBinConverter.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\PortMonitor.Designer.vb">
+      <Link>EmbeddedSimplSerial\PortMonitor.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\PortMonitor.vb">
+      <Link>EmbeddedSimplSerial\PortMonitor.vb</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\SerialSelector.Designer.vb">
+      <Link>EmbeddedSimplSerial\SerialSelector.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\SerialSelector.vb">
+      <Link>EmbeddedSimplSerial\SerialSelector.vb</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\SimplSerialTool.Designer.vb">
+      <Link>EmbeddedSimplSerial\SimplSerialTool.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\SimplSerialTool.vb">
+      <Link>EmbeddedSimplSerial\SimplSerialTool.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\Strings.vb">
+      <Link>EmbeddedSimplSerial\Strings.vb</Link>
+    </Compile>
+    <Compile Include="EmbeddedSerial\FastSerialPort.vb" />
+    <Compile Include="EmbeddedSerial\ISerialDevice.vb" />
+    <Compile Include="EmbeddedSerial\ISerialDeviceSence.vb" />
+    <Compile Include="EmbeddedSerial\ISerialDeviceSignals.vb" />
+    <Compile Include="EmbeddedSerial\SerialDevice.vb" />
+    <Compile Include="EmbeddedSerial\SerialPort.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="FirmwareTool.Designer.vb">
+      <DependentUpon>FirmwareTool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FirmwareTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Bwl.Hardware.SimplSerial\EmbeddedFw\Logger\LogWriters\Realizations\DatagridLogWriter.resx">
+      <Link>EmbeddedFw\DatagridLogWriter.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Bwl.Hardware.SimplSerial\EmbeddedFw\Logger\LogWriters\Realizations\FormLogInfo.resx">
+      <Link>EmbeddedFw\FormLogInfo.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Bwl.Hardware.SimplSerial\Tools\ByteMonitor.resx">
+      <Link>EmbeddedSimplSerial\ByteMonitor.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Bwl.Hardware.SimplSerial\Tools\CodeExecutor.resx">
+      <Link>EmbeddedSimplSerial\CodeExecutor.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Bwl.Hardware.SimplSerial\Tools\PortMonitor.resx">
+      <Link>EmbeddedSimplSerial\PortMonitor.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Bwl.Hardware.SimplSerial\Tools\SerialSelector.resx">
+      <Link>EmbeddedSimplSerial\SerialSelector.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Bwl.Hardware.SimplSerial\Tools\SimplSerialTool.resx">
+      <Link>EmbeddedSimplSerial\SimplSerialTool.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FirmwareTool.resx">
+      <DependentUpon>FirmwareTool.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Download droit.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
