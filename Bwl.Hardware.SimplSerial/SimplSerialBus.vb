@@ -137,17 +137,17 @@ Public Class SimplSerialBus
         _serial.Write(bytes.ToArray)
     End Sub
 
+    Dim _readLastByte As Byte
+
     Public Function Read() As SSResponse
         SyncLock _syncRoot
             Dim result As New SSResponse
             result.ResponseState = ResponseState.errorNotRequested
             SyncLock _serial
-                Dim time = Now
                 Dim readSuccess As Boolean = True
                 Do While result.ResponseState <> ResponseState.ok And readSuccess
-                    Dim currbyte As Byte
-                    Dim lastData As Byte
                     readSuccess = False
+                    Dim currbyte As Byte
                     Try
                         If _serial.ReceivedBufferCount > 0 Then
                             currbyte = _serial.Read()
@@ -163,7 +163,7 @@ Public Class SimplSerialBus
                             _readBufferPos = 0
                         End If
 
-                        If lastData = &H98 Then
+                        If _readLastByte = &H98 Then
                             Select Case currbyte
                                 Case 0
                                     _readBuffer(_readBufferPos) = &H98 : _readBufferPos += 1
@@ -193,9 +193,9 @@ Public Class SimplSerialBus
                         Else
                             If currbyte <> &H98 Then _readBuffer(_readBufferPos) = currbyte : _readBufferPos += 1
                         End If
-                        lastData = currbyte
+                        _readLastByte = currbyte
                     Else
-                        Threading.Thread.Sleep(TimeSpan.FromTicks(1))
+                        Threading.Thread.Sleep(1)
                     End If
                 Loop
 
@@ -539,11 +539,11 @@ Public Class SimplSerialBus
         Return info
     End Function
 
-    Public Function FindDevices(seed As Integer) As Guid()
+    Public Function FindDevices(seed As Integer, timeout As Double) As Guid()
         Dim bytes = BitConverter.GetBytes(seed)
-        Send(New SSRequest(0, 255, {0, bytes(0), bytes(1), bytes(2), bytes(3)}))
-        Debug.WriteLine(seed.ToString)
-        Dim timeout = 1
+        SyncLock _syncRoot
+            Send(New SSRequest(0, 255, {0, bytes(0), bytes(1), bytes(2), bytes(3)}))
+        End SyncLock
         Dim start = Now
         Dim list As New List(Of Guid)
         Do While (Now - start).TotalSeconds < timeout
@@ -567,7 +567,7 @@ Public Class SimplSerialBus
     Private _rnd As New Random
     Public Function FindDevices() As Guid()
         Dim randi = _rnd.Next
-        Return FindDevices(randi)
+        Return FindDevices(randi, 2)
     End Function
 
 End Class
