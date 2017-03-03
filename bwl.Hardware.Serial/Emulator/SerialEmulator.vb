@@ -141,6 +141,12 @@
         End Get
     End Property
 
+    Public Overrides ReadOnly Property Underlay As Object
+        Get
+            Return Me
+        End Get
+    End Property
+
     Private Sub LoopThread()
         Do
             If EmuToRead() > 0 Then

@@ -24,6 +24,8 @@ Public Interface ISerialDevice
     ReadOnly Property DeviceAddressFormat As String
     ReadOnly Property IsConnected() As Boolean
 
+    ReadOnly Property Underlay As Object
+
     Sub Connect()
     Sub Disconnect()
     Function TryConnect() As Boolean

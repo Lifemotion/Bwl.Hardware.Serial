@@ -20,6 +20,13 @@ Public Class FTDIUsbDevice
 
     Private Const bufferSize = 256
     Private device As New FTDI
+
+    Public Overrides ReadOnly Property Underlay As Object
+        Get
+            Return device
+        End Get
+    End Property
+
     Public Sub New()
         Dim funcs As New WorkFunctions
         funcs.connectFunction = AddressOf ConnectRealization

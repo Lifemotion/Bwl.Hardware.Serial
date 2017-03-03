@@ -3,7 +3,6 @@
 Public Class FastSerialPort
     Implements ISerialDevice, ISerialDeviceSence, ISerialDeviceSignals
 
-
     Private _rs232 As New IO.Ports.SerialPort
     Public Property DeviceAddress As String = "" Implements ISerialDevice.DeviceAddress
     Public Property AutoConnect As Boolean Implements ISerialDevice.AutoConnect
@@ -134,6 +133,12 @@ Public Class FastSerialPort
             SyncLock _rs232
                 Return _rs232.RtsEnable
             End SyncLock
+        End Get
+    End Property
+
+    Public ReadOnly Property Underlay As Object Implements ISerialDevice.Underlay
+        Get
+            Return _rs232
         End Get
     End Property
 End Class

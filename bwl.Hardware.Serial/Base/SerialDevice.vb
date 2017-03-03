@@ -1,4 +1,6 @@
 ﻿Imports System.Threading
+Imports Bwl.Hardware.Serial
+
 Public MustInherit Class SerialDevice
     Implements ISerialDevice
 
@@ -297,32 +299,34 @@ Public MustInherit Class SerialDevice
         End Get
     End Property
 
+    Public MustOverride ReadOnly Property Underlay As Object Implements ISerialDevice.Underlay
+
     Private Sub AutoReaderThread()
         Dim lastBytesCount As UInteger
         Do
             Try
                 Dim raiseArrived = False
-            Dim raiseRead = False
-            Dim bytesCount As Integer
-            Dim bytes() As Byte = Nothing
-            Thread.Sleep(1)
-            SyncLock _deviceSync
-                If IsConnected And Not _autoReadBlock Then
-                    bytesCount = _workFunctions.getRxBufferLengthFunction.Invoke
-                    If lastBytesCount <> bytesCount Then
-                        If _autoRead Then
-                            bytes = _workFunctions.readFunction.Invoke(bytesCount)
-                            bytesCount = 0
-                            If bytes.Length > 0 Then raiseRead = True
-                        Else
-                            raiseArrived = True
+                Dim raiseRead = False
+                Dim bytesCount As Integer
+                Dim bytes() As Byte = Nothing
+                Thread.Sleep(1)
+                SyncLock _deviceSync
+                    If IsConnected And Not _autoReadBlock Then
+                        bytesCount = _workFunctions.getRxBufferLengthFunction.Invoke
+                        If lastBytesCount <> bytesCount Then
+                            If _autoRead Then
+                                bytes = _workFunctions.readFunction.Invoke(bytesCount)
+                                bytesCount = 0
+                                If bytes.Length > 0 Then raiseRead = True
+                            Else
+                                raiseArrived = True
+                            End If
                         End If
+                        lastBytesCount = bytesCount
+                        Thread.Sleep(1)
                     End If
-                    lastBytesCount = bytesCount
-                    Thread.Sleep(1)
-                End If
-            End SyncLock
-            If raiseRead Then RaiseEvent BytesRead(Me, bytes, True)
+                End SyncLock
+                If raiseRead Then RaiseEvent BytesRead(Me, bytes, True)
                 If raiseArrived Then RaiseEvent BytesArrived(Me, bytesCount)
 
             Catch ex As Exception

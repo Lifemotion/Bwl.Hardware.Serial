@@ -3,6 +3,12 @@ Public Class SerialPort
     Inherits SerialDevice
     Private _rs232 As New IO.Ports.SerialPort
 
+    Public Overrides ReadOnly Property Underlay As Object
+        Get
+            Return _rs232
+        End Get
+    End Property
+
     Private Sub ConnectFunction()
         _rs232.Close()
         _rs232.PortName = DeviceAddress
