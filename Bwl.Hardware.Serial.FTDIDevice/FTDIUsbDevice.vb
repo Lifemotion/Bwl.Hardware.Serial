@@ -97,7 +97,7 @@ Public Class FTDIUsbDevice
 
     Public Sub WriteRealization(ByVal bytes() As Byte)
         SyncLock device
-            Dim bytesWritten As Integer
+            Dim bytesWritten As UInteger
             Dim tmp(0) As Byte
             For i As Integer = 0 To bytes.Length - 1
                 tmp(0) = bytes(i)
