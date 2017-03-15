@@ -53,6 +53,7 @@ Public Class SimplSerialBus
     Private _readBuffer(1024) As Byte
     Public Property RequestTimeout As Integer = 1000
     Public Property ReadBytes As Long
+    Public Event Logger(type As String, msg As String)
 
     ' 9600 - стандарт, 1200 - low, 115200 - fast
     Public Sub New(serial As ISerialDevice)
@@ -135,6 +136,7 @@ Public Class SimplSerialBus
     Public Sub Send(request As SSRequest)
         Dim bytes = MakeRequestBytes(request)
         _serial.Write(bytes.ToArray)
+        RaiseEvent Logger("DBG", "SS <- " + request.ToString)
     End Sub
 
     Dim _readLastByte As Byte
@@ -155,6 +157,7 @@ Public Class SimplSerialBus
                         End If
                     Catch ex As Exception
                         result.ResponseState = ResponseState.errorPortError
+                        RaiseEvent Logger("DBG", "SS -> " + result.ToString)
                         Return result
                     End Try
 
@@ -180,9 +183,11 @@ Public Class SimplSerialBus
                                             result.Data = Array.CreateInstance(GetType(Byte), length)
                                             Array.ConstrainedCopy(_readBuffer, 3, result.Data, 0, length)
                                             result.ResponseState = ResponseState.ok
+                                            RaiseEvent Logger("DBG", "SS -> " + result.ToString)
                                             Return result
                                         Else
                                             result.ResponseState = ResponseState.errorCrc
+                                            RaiseEvent Logger("DBG", "SS -> " + result.ToString)
                                             Return result
                                         End If
                                     End If
@@ -201,6 +206,7 @@ Public Class SimplSerialBus
 
             End SyncLock
             If result.ResponseState = ResponseState.ok Then
+                RaiseEvent Logger("DBG", "SS -> " + result.ToString)
                 Return result
             Else
                 Return Nothing
@@ -392,6 +398,7 @@ Public Class SimplSerialBus
                         End If
                     Catch ex As Exception
                         result.ResponseState = ResponseState.errorPortError
+                        RaiseEvent Logger("DBG", "SS -> " + result.ToString)
                         Return result
                     End Try
 
@@ -417,9 +424,11 @@ Public Class SimplSerialBus
                                             result.Data = Array.CreateInstance(GetType(Byte), length)
                                             Array.ConstrainedCopy(receivedBuffer, 3, result.Data, 0, length)
                                             result.ResponseState = ResponseState.ok
+                                            RaiseEvent Logger("DBG", "SS -> " + result.ToString)
                                             Return result
                                         Else
                                             result.ResponseState = ResponseState.errorCrc
+                                            RaiseEvent Logger("DBG", "SS -> " + result.ToString)
                                             Return result
                                         End If
                                     End If
@@ -436,6 +445,7 @@ Public Class SimplSerialBus
                     End If
                 Loop
                 ' If result.ResponseState = ResponseState.errorTimeout Then Stop
+                RaiseEvent Logger("DBG", "SS -> " + result.ToString)
                 Return result
             End SyncLock
         End SyncLock

@@ -8,7 +8,7 @@
     Public Property Data As Byte() = {}
 
     Public Overrides Function ToString() As String
-        Dim text = ResponseState.ToString + " " + Result.ToString + ": "
+        Dim text = "[" + FromAddress.ToString + "] " + ResponseState.ToString + " " + Result.ToString + ": "
         For Each d In Data
             text += d.ToString + " "
         Next
