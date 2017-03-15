@@ -83,7 +83,7 @@ Public Class SimplSerialTool
                             bootstateTextbox.Text = "режим загрузчика, " + info.BootName
                         Else
                             bootstateTextbox.Text = "основной код, "
-                            If info.BootName > "" Then
+                            If info.BootName.Trim > "" Then
                                 bootstateTextbox.Text += "загрузчик найден: " + info.BootName
                             Else
                                 bootstateTextbox.Text += "нет информации о загрузчике"

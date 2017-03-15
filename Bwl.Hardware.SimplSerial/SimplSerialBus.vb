@@ -533,15 +533,15 @@ Public Class SimplSerialBus
                     If result.Data(i) < &H20 Or result.Data(i) > &H7E Then result.Data(i) = &H20
                 Next
                 info.DeviceGuid = New Guid(arr)
-                info.DeviceName = ascii.GetString(result.Data, 16, 32).Trim
-                info.DeviceDate = ascii.GetString(result.Data, 48, 6).Trim
+                info.DeviceName = ascii.GetString(result.Data, 16, 32).Replace(vbNullChar, "").Trim
+                info.DeviceDate = ascii.GetString(result.Data, 48, 6).Replace(vbNullChar, "").Trim
                 If result.Data.Length >= 86 Then
-                    info.BootName = ascii.GetString(result.Data, 54, 16).Trim
-                    info.ProtocolVersion = ascii.GetString(result.Data, 70, 6).Trim
+                    info.BootName = ascii.GetString(result.Data, 54, 16).Replace(vbNullChar, "").Trim
+                    info.ProtocolVersion = ascii.GetString(result.Data, 70, 6).Replace(vbNullChar, "").Trim
                 End If
                 If info.DeviceName.StartsWith("BwlBoot") Then
                     info.BootloaderMode = True
-                    info.BootName = info.DeviceName.Substring(0, 16).Trim.Replace(":", "")
+                    info.BootName = info.DeviceName.Substring(0, 16).Replace(vbNullChar, "").Trim.Replace(":", "")
                 End If
                 Return info
             End If
