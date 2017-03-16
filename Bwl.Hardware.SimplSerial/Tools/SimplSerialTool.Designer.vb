@@ -34,6 +34,9 @@ Partial Class SimplSerialTool
         Me.spmSizeTextbox = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.rbFast128 = New System.Windows.Forms.RadioButton()
+        Me.rbFast32 = New System.Windows.Forms.RadioButton()
+        Me.rbFastOff = New System.Windows.Forms.RadioButton()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.selectFirmwarePathButton = New System.Windows.Forms.Button()
@@ -110,9 +113,6 @@ Partial Class SimplSerialTool
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.DatagridLogWriter1 = New Bwl.Hardware.SimplSerial.DatagridLogWriter()
-        Me.rbFastOff = New System.Windows.Forms.RadioButton()
-        Me.rbFast32 = New System.Windows.Forms.RadioButton()
-        Me.rbFast128 = New System.Windows.Forms.RadioButton()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
@@ -255,11 +255,43 @@ Partial Class SimplSerialTool
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Прошивка"
         '
+        'rbFast128
+        '
+        Me.rbFast128.AutoSize = True
+        Me.rbFast128.Location = New System.Drawing.Point(533, 11)
+        Me.rbFast128.Name = "rbFast128"
+        Me.rbFast128.Size = New System.Drawing.Size(96, 17)
+        Me.rbFast128.TabIndex = 30
+        Me.rbFast128.Text = "Fast Mode 128"
+        Me.rbFast128.UseVisualStyleBackColor = True
+        '
+        'rbFast32
+        '
+        Me.rbFast32.AutoSize = True
+        Me.rbFast32.Location = New System.Drawing.Point(437, 11)
+        Me.rbFast32.Name = "rbFast32"
+        Me.rbFast32.Size = New System.Drawing.Size(90, 17)
+        Me.rbFast32.TabIndex = 29
+        Me.rbFast32.Text = "Fast Mode 32"
+        Me.rbFast32.UseVisualStyleBackColor = True
+        '
+        'rbFastOff
+        '
+        Me.rbFastOff.AutoSize = True
+        Me.rbFastOff.Checked = True
+        Me.rbFastOff.Location = New System.Drawing.Point(333, 11)
+        Me.rbFastOff.Name = "rbFastOff"
+        Me.rbFastOff.Size = New System.Drawing.Size(98, 17)
+        Me.rbFastOff.TabIndex = 28
+        Me.rbFastOff.TabStop = True
+        Me.rbFastOff.Text = "Standard Mode"
+        Me.rbFastOff.UseVisualStyleBackColor = True
+        '
         'Label11
         '
-        Me.Label11.Location = New System.Drawing.Point(6, 58)
+        Me.Label11.Location = New System.Drawing.Point(5, 57)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(630, 42)
+        Me.Label11.Size = New System.Drawing.Size(630, 43)
         Me.Label11.TabIndex = 27
         Me.Label11.Text = resources.GetString("Label11.Text")
         '
@@ -1010,38 +1042,6 @@ Partial Class SimplSerialTool
         Me.DatagridLogWriter1.ShowWarnings = True
         Me.DatagridLogWriter1.Size = New System.Drawing.Size(915, 254)
         Me.DatagridLogWriter1.TabIndex = 10
-        '
-        'rbFastOff
-        '
-        Me.rbFastOff.AutoSize = True
-        Me.rbFastOff.Checked = True
-        Me.rbFastOff.Location = New System.Drawing.Point(333, 11)
-        Me.rbFastOff.Name = "rbFastOff"
-        Me.rbFastOff.Size = New System.Drawing.Size(98, 17)
-        Me.rbFastOff.TabIndex = 28
-        Me.rbFastOff.TabStop = True
-        Me.rbFastOff.Text = "Standard Mode"
-        Me.rbFastOff.UseVisualStyleBackColor = True
-        '
-        'rbFast32
-        '
-        Me.rbFast32.AutoSize = True
-        Me.rbFast32.Location = New System.Drawing.Point(437, 11)
-        Me.rbFast32.Name = "rbFast32"
-        Me.rbFast32.Size = New System.Drawing.Size(90, 17)
-        Me.rbFast32.TabIndex = 29
-        Me.rbFast32.Text = "Fast Mode 32"
-        Me.rbFast32.UseVisualStyleBackColor = True
-        '
-        'rbFast96
-        '
-        Me.rbFast128.AutoSize = True
-        Me.rbFast128.Location = New System.Drawing.Point(533, 11)
-        Me.rbFast128.Name = "rbFast96"
-        Me.rbFast128.Size = New System.Drawing.Size(96, 17)
-        Me.rbFast128.TabIndex = 30
-        Me.rbFast128.Text = "Fast Mode 128"
-        Me.rbFast128.UseVisualStyleBackColor = True
         '
         'SimplSerialTool
         '

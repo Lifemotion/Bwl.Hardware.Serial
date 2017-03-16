@@ -184,9 +184,15 @@ Public Class SimplSerialTool
 
     Private Sub eraseProgramButton_Click(sender As Object, e As EventArgs) Handles eraseProgramButton.Click
         reqBootInfoButton_Click()
-        TryThis(Sub()
-                    _flasher.EraseAll(GetAddress())
-                End Sub)
+        If rbFastOff.Checked Then
+            TryThis(Sub()
+                        _flasher.EraseAll(GetAddress())
+                    End Sub)
+        Else
+            TryThis(Sub()
+                        _flasher.EraseAllFast(GetAddress())
+                    End Sub)
+        End If
     End Sub
 
     Private Sub portWriteButton_Click() Handles portWriteButton.Click
