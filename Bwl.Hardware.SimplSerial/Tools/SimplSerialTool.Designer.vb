@@ -93,6 +93,7 @@ Partial Class SimplSerialTool
         Me.devnameTextbox = New System.Windows.Forms.TextBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.НастройкиToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ЛогToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.reqGuidTextbox = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.bootstateTextbox = New System.Windows.Forms.TextBox()
@@ -109,7 +110,9 @@ Partial Class SimplSerialTool
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.DatagridLogWriter1 = New Bwl.Hardware.SimplSerial.DatagridLogWriter()
-        Me.ЛогToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.rbFastOff = New System.Windows.Forms.RadioButton()
+        Me.rbFast32 = New System.Windows.Forms.RadioButton()
+        Me.rbFast128 = New System.Windows.Forms.RadioButton()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
@@ -236,6 +239,9 @@ Partial Class SimplSerialTool
         '
         'GroupBox6
         '
+        Me.GroupBox6.Controls.Add(Me.rbFast128)
+        Me.GroupBox6.Controls.Add(Me.rbFast32)
+        Me.GroupBox6.Controls.Add(Me.rbFastOff)
         Me.GroupBox6.Controls.Add(Me.Label11)
         Me.GroupBox6.Controls.Add(Me.Label8)
         Me.GroupBox6.Controls.Add(Me.selectFirmwarePathButton)
@@ -820,6 +826,12 @@ Partial Class SimplSerialTool
         Me.НастройкиToolStripMenuItem.Size = New System.Drawing.Size(88, 20)
         Me.НастройкиToolStripMenuItem.Text = "Настройки..."
         '
+        'ЛогToolStripMenuItem
+        '
+        Me.ЛогToolStripMenuItem.Name = "ЛогToolStripMenuItem"
+        Me.ЛогToolStripMenuItem.Size = New System.Drawing.Size(94, 22)
+        Me.ЛогToolStripMenuItem.Text = "Лог"
+        '
         'reqGuidTextbox
         '
         Me.reqGuidTextbox.Location = New System.Drawing.Point(10, 119)
@@ -999,11 +1011,37 @@ Partial Class SimplSerialTool
         Me.DatagridLogWriter1.Size = New System.Drawing.Size(915, 254)
         Me.DatagridLogWriter1.TabIndex = 10
         '
-        'ЛогToolStripMenuItem
+        'rbFastOff
         '
-        Me.ЛогToolStripMenuItem.Name = "ЛогToolStripMenuItem"
-        Me.ЛогToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.ЛогToolStripMenuItem.Text = "Лог"
+        Me.rbFastOff.AutoSize = True
+        Me.rbFastOff.Checked = True
+        Me.rbFastOff.Location = New System.Drawing.Point(333, 11)
+        Me.rbFastOff.Name = "rbFastOff"
+        Me.rbFastOff.Size = New System.Drawing.Size(98, 17)
+        Me.rbFastOff.TabIndex = 28
+        Me.rbFastOff.TabStop = True
+        Me.rbFastOff.Text = "Standard Mode"
+        Me.rbFastOff.UseVisualStyleBackColor = True
+        '
+        'rbFast32
+        '
+        Me.rbFast32.AutoSize = True
+        Me.rbFast32.Location = New System.Drawing.Point(437, 11)
+        Me.rbFast32.Name = "rbFast32"
+        Me.rbFast32.Size = New System.Drawing.Size(90, 17)
+        Me.rbFast32.TabIndex = 29
+        Me.rbFast32.Text = "Fast Mode 32"
+        Me.rbFast32.UseVisualStyleBackColor = True
+        '
+        'rbFast96
+        '
+        Me.rbFast128.AutoSize = True
+        Me.rbFast128.Location = New System.Drawing.Point(533, 11)
+        Me.rbFast128.Name = "rbFast96"
+        Me.rbFast128.Size = New System.Drawing.Size(96, 17)
+        Me.rbFast128.TabIndex = 30
+        Me.rbFast128.Text = "Fast Mode 128"
+        Me.rbFast128.UseVisualStyleBackColor = True
         '
         'SimplSerialTool
         '
@@ -1137,4 +1175,7 @@ Partial Class SimplSerialTool
     Friend WithEvents Label24 As System.Windows.Forms.Label
     Friend WithEvents Label25 As System.Windows.Forms.Label
     Friend WithEvents ЛогToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents rbFast128 As RadioButton
+    Friend WithEvents rbFast32 As RadioButton
+    Friend WithEvents rbFastOff As RadioButton
 End Class

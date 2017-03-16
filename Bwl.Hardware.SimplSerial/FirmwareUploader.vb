@@ -141,4 +141,74 @@ Public Class FirmwareUploader
         WritePage(address, page)
     End Sub
 
+#Region "Fastmode"
+    Public Sub EraseAndFlashAllFast(address As Integer, bin As Byte(), Optional fastmode As Integer = 32)
+        EraseAllFast(address)
+        FlashAllFast(address, bin, fastmode)
+    End Sub
+
+    Public Sub EraseAllFast(address As Integer)
+        Dim timeout = _sserial.RequestTimeout
+        _sserial.RequestTimeout = 10000
+        _logger.AddInformation("Erase All Flash (Fast)...")
+        Application.DoEvents()
+        Application.DoEvents()
+        Dim test = _sserial.Request(New SSRequest(address, 110, {0, 0, 0, 0}), 1)
+        _sserial.RequestTimeout = timeout
+        If test.ResponseState <> ResponseState.ok Then Throw New Exception(test.ResponseState.ToString)
+        If test.Result <> 111 Then Throw New Exception(test.Result.ToString)
+    End Sub
+
+    Public Sub FillPageBufferFast(address As Integer, page As Integer, offset As Integer, buffer As Byte(), bufferOffset As Integer, bufferCount As Integer)
+        If bufferCount Mod 2 Then Throw New Exception("FillPageBuffer Mod 2 != 0")
+        Dim page0 = (page >> 8) And 255
+        Dim page1 = page Mod 256
+        Dim offset0 = (offset >> 8) And 255
+        Dim offset1 = offset Mod 256
+        Dim databytes As New List(Of Byte)
+        databytes.AddRange({page0, page1, offset0, offset1})
+        For i = 0 To bufferCount - 1
+            databytes.Add(buffer(bufferOffset + i))
+        Next
+        Dim test = _sserial.Request(New SSRequest(address, 108, databytes.ToArray), 50)
+        If test.ResponseState <> ResponseState.ok Then Throw New Exception(test.ResponseState.ToString)
+        If test.Result <> 109 Then Throw New Exception(test.Result.ToString)
+
+        _logger.AddDebug("FillPageFast")
+    End Sub
+
+    Public Sub FlashAllFast(address As Integer, bin As Byte(), fastmode As Integer)
+        Dim binLength As Integer
+        binLength = bin.Length
+        Dim spm = SpmSize
+        Dim size = ProgmemSize - 1024 * 4
+        If spm < 64 Then Throw New Exception("SPM = 0")
+
+        Dim binsize As Integer = Math.Ceiling(bin.Length / spm) * spm
+        ReDim Preserve bin(binsize - 1) '
+
+        For i = 0 To bin.Length - 1 Step spm
+            Dim page As Integer = Math.Floor(i \ spm)
+            _logger.AddInformation("Program (Fast): " + i.ToString + "\" + binLength.ToString)
+            Application.DoEvents()
+            FillWritePageFast(address, page, bin, i, spm, fastmode)
+        Next
+    End Sub
+
+    Public Sub FillWritePageFast(address As Integer, page As Integer, data As Byte(), offset As Integer, size As Integer, fastmode As Integer)
+        If size <> 128 And size <> 64 And size <> 256 Then Throw New Exception("EraseFillWritePageFast:  size <> 128, 64, 256")
+        If data.Length < offset + size Then Throw New Exception("EraseFillWritePageFast: Data not enough")
+
+        Dim buffer(size - 1) As Byte
+        For i = 0 To buffer.Length - 1
+            buffer(i) = data(offset + i)
+        Next
+
+        For i = 0 To size - 1 Step fastmode
+            FillPageBufferFast(address, page, i, buffer, i, fastmode)
+        Next
+        WritePage(address, page)
+    End Sub
+#End Region
+
 End Class

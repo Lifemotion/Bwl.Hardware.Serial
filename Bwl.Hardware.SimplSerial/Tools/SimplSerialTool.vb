@@ -164,8 +164,15 @@ Public Class SimplSerialTool
 
     Private Sub programMemButton_Click(sender As Object, e As EventArgs) Handles programMemButton.Click
         reqBootInfoButton_Click()
+        Dim fastMode = 0
+        If rbFast32.Checked Then fastMode = 32
+        If rbFast128.Checked Then fastMode = 128
         TryThis(Sub()
-                    _flasher.EraseAndFlashAll(GetAddress(), FirmwareUploader.LoadFirmwareFromFile(firmwarePathTextbox.Text))
+                    If fastMode = 0 Then
+                        _flasher.EraseAndFlashAll(GetAddress(), FirmwareUploader.LoadFirmwareFromFile(firmwarePathTextbox.Text))
+                    Else
+                        _flasher.EraseAndFlashAllFast(GetAddress(), FirmwareUploader.LoadFirmwareFromFile(firmwarePathTextbox.Text), fastMode)
+                    End If
                 End Sub)
     End Sub
 
