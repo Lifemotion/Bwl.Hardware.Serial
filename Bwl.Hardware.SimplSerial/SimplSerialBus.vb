@@ -559,7 +559,7 @@ Public Class SimplSerialBus
         Do While (Now - start).TotalSeconds < timeout
             Dim result = Read()
             Try
-                If result IsNot Nothing AndAlso result.ResponseState = ResponseState.ok Then
+                If result IsNot Nothing AndAlso result.ResponseState = ResponseState.ok AndAlso result.Data IsNot Nothing AndAlso result.Data.Length = 16 Then
                     Dim arr(15) As Byte
                     For i = 0 To 15
                         arr(i) = result.Data(i)
