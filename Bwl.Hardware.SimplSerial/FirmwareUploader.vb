@@ -1,8 +1,9 @@
 ﻿Imports System.Windows.Forms
 
 Public Class FirmwareUploader
+    Public Event Logger(type As String, msg As String)
+
     Private _sserial As SimplSerialBus
-    Private _logger As Logger
 
     Public ReadOnly Property SSerial As SimplSerialBus
         Get
@@ -10,14 +11,8 @@ Public Class FirmwareUploader
         End Get
     End Property
 
-    Public Sub New(sserial As SimplSerialBus, logger As Logger)
-        _sserial = sserial
-        _logger = logger
-    End Sub
-
     Public Sub New(sserial As SimplSerialBus)
         _sserial = sserial
-        _logger = New Logger
     End Sub
 
     Public Property SpmSize As Integer
@@ -36,7 +31,7 @@ Public Class FirmwareUploader
         Dim size = ProgmemSize - 1024 * 4
         For i = 0 To size - 1 Step spm
             Dim page As Integer = Math.Floor(i \ spm)
-            _logger.AddInformation("Erase: " + i.ToString + "\" + size.ToString)
+            RaiseEvent Logger("INF", "Erase: " + i.ToString + "\" + size.ToString)
             Application.DoEvents()
             ErasePage(address, page)
         Next
@@ -53,10 +48,31 @@ Public Class FirmwareUploader
             Case ".bin"
                 bin = IO.File.ReadAllBytes(file)
             Case Else
-                Throw New Exception("Extension not supported. Use HEX or BIN.")
+                Throw New Exception("Extension Not supported. Use HEX Or BIN.")
         End Select
         Return bin
     End Function
+
+    Private _rnd As New Random
+
+    Public Sub AutoFlash(guid As Guid, firmware As Byte(), Optional fastMode As Integer = 0)
+        Dim address = _rnd.Next(1, 30000)
+        _sserial.RequestSetAddress(guid, address)
+        AutoFlash(address, firmware, fastMode)
+    End Sub
+
+    Public Sub AutoFlash(address As Integer, firmware As Byte(), Optional fastMode As Integer = 0)
+        Try
+            _sserial.RequestGoToBootloader(address)
+        Catch ex As Exception
+        End Try
+        RequestBootInfo(address)
+        If fastMode > 0 Then
+            EraseAndFlashAllFast(address, firmware, fastMode)
+        Else
+            EraseAndFlashAll(address, firmware)
+        End If
+    End Sub
 
     Public Sub EraseAndFlashAll(address As Integer, bin As Byte())
         EraseAll(address)
@@ -75,7 +91,7 @@ Public Class FirmwareUploader
 
         For i = 0 To bin.Length - 1 Step spm
             Dim page As Integer = Math.Floor(i \ spm)
-            _logger.AddInformation("Program: " + i.ToString + "\" + binLength.ToString)
+            RaiseEvent Logger("INF", "Program:   " + i.ToString + "\" + binLength.ToString)
             Application.DoEvents()
             EraseFillWritePage(address, page, bin, i, spm)
         Next
@@ -101,7 +117,7 @@ Public Class FirmwareUploader
         Dim test = _sserial.Request(New SSRequest(address, 102, {page0, page1, 0}), 50)
         If test.ResponseState <> ResponseState.ok Then Throw New Exception(test.ResponseState.ToString)
         If test.Result <> 103 Then Throw New Exception(test.ResponseState.ToString)
-        _logger.AddDebug("ErasePage")
+        RaiseEvent Logger("DBG", "ErasePage")
     End Sub
 
     Public Sub FillPageBuffer(address As Integer, page As Integer, offset As Integer, bytes As Byte())
@@ -113,8 +129,7 @@ Public Class FirmwareUploader
         Dim test = _sserial.Request(New SSRequest(address, 104, {page0, page1, offset0, offset1, bytes(0), bytes(1), bytes(2), bytes(3), bytes(4), bytes(5), bytes(6), bytes(7)}), 50)
         If test.ResponseState <> ResponseState.ok Then Throw New Exception(test.ResponseState.ToString)
         If test.Result <> 105 Then Throw New Exception(test.ResponseState.ToString)
-
-        _logger.AddDebug("FillPage")
+        RaiseEvent Logger("DBG", "FillPage")
     End Sub
 
     Public Sub WritePage(address As Integer, page As Integer)
@@ -150,7 +165,7 @@ Public Class FirmwareUploader
     Public Sub EraseAllFast(address As Integer)
         Dim timeout = _sserial.RequestTimeout
         _sserial.RequestTimeout = 10000
-        _logger.AddInformation("Erase All Flash (Fast)...")
+        RaiseEvent Logger("INF", "Erase All Flash (Fast)...")
         Application.DoEvents()
         Application.DoEvents()
         Dim test = _sserial.Request(New SSRequest(address, 110, {0, 0, 0, 0}), 1)
@@ -173,8 +188,7 @@ Public Class FirmwareUploader
         Dim test = _sserial.Request(New SSRequest(address, 108, databytes.ToArray), 50)
         If test.ResponseState <> ResponseState.ok Then Throw New Exception(test.ResponseState.ToString)
         If test.Result <> 109 Then Throw New Exception(test.Result.ToString)
-
-        _logger.AddDebug("FillPageFast")
+        RaiseEvent Logger("DBG", "FillPageFast")
     End Sub
 
     Public Sub FlashAllFast(address As Integer, bin As Byte(), fastmode As Integer)
@@ -189,7 +203,7 @@ Public Class FirmwareUploader
 
         For i = 0 To bin.Length - 1 Step spm
             Dim page As Integer = Math.Floor(i \ spm)
-            _logger.AddInformation("Program (Fast): " + i.ToString + "\" + binLength.ToString)
+            RaiseEvent Logger("INF", "Program (Fast): " + i.ToString + "\" + binLength.ToString)
             Application.DoEvents()
             FillWritePageFast(address, page, bin, i, spm, fastmode)
         Next

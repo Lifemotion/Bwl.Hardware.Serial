@@ -146,21 +146,30 @@ Public Class SimplSerialTool
                 End Sub)
     End Sub
 
+    Private _flasher As FirmwareUploader
+
     Private Sub reqBootInfoButton_Click() Handles reqBootInfoButton.Click
         Try
             goToBootloader_Click()
         Catch ex As Exception
         End Try
         TryThis(Sub()
-                    _flasher = New FirmwareUploader(_sserial, _logger)
+                    _flasher = New FirmwareUploader(_sserial)
+                    AddHandler _flasher.Logger, Sub(type As String, msg As String)
+                                                    Select Case type
+                                                        Case "INF" : _logger.AddInformation(msg)
+                                                        Case "MSG" : _logger.AddMessage(msg)
+                                                        Case "WRN" : _logger.AddWarning(msg)
+                                                        Case "ERR" : _logger.AddError(msg)
+                                                        Case Else : _logger.AddDebug(msg)
+                                                    End Select
+                                                End Sub
                     _flasher.RequestBootInfo(GetAddress())
                     spmSizeTextbox.Text = _flasher.SpmSize.ToString
                     progmemSizeTextbox.Text = _flasher.ProgmemSize.ToString
                     signature.Text = _flasher.Signature
                 End Sub)
     End Sub
-
-    Private _flasher As FirmwareUploader
 
     Private Sub programMemButton_Click(sender As Object, e As EventArgs) Handles programMemButton.Click
         reqBootInfoButton_Click()
