@@ -16,7 +16,16 @@ Public Class FirmwareTool
         InitializeComponent()
         _sserial = sserial
         _logger = New Logger
-        _flasher = New FirmwareUploader(_sserial, _logger)
+        _flasher = New FirmwareUploader(_sserial)
+        AddHandler _flasher.Logger, Sub(type As String, msg As String)
+                                        Select Case type
+                                            Case "INF" : _logger.AddInformation(msg)
+                                            Case "MSG" : _logger.AddMessage(msg)
+                                            Case "WRN" : _logger.AddWarning(msg)
+                                            Case "ERR" : _logger.AddError(msg)
+                                            Case Else : _logger.AddDebug(msg)
+                                        End Select
+                                    End Sub
         SerialSelector1.AssociatedISerialDevice = _sserial.SerialDevice
         SerialSelector1.LoadFromDevice()
         SerialSelector1.Enabled = True
@@ -477,7 +486,16 @@ Public Class FirmwareTool
         Catch ex As Exception
         End Try
         TryThis(Sub()
-                    _flasher = New FirmwareUploader(_sserial, _logger)
+                    _flasher = New FirmwareUploader(_sserial)
+                    AddHandler _flasher.Logger, Sub(type As String, msg As String)
+                                                    Select Case type
+                                                        Case "INF" : _logger.AddInformation(msg)
+                                                        Case "MSG" : _logger.AddMessage(msg)
+                                                        Case "WRN" : _logger.AddWarning(msg)
+                                                        Case "ERR" : _logger.AddError(msg)
+                                                        Case Else : _logger.AddDebug(msg)
+                                                    End Select
+                                                End Sub
                     _flasher.RequestBootInfo(GetAddress())
                     spmSizeTextbox.Text = _flasher.SpmSize.ToString
                     progmemSizeTextbox.Text = _flasher.ProgmemSize.ToString
