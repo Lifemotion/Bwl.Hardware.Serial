@@ -1,14 +1,12 @@
-﻿Imports Bwl.Hardware.SimplSerial.SimplSerialBus
+﻿Public Class SimplSerialManager
 
-Public Class SimplSerialManager
-    Private _logger As Logger
     Private ReadOnly _bus As SimplSerialBus
     Private ReadOnly _busLocker As New Object
     Private ReadOnly _rand As New Random(CInt(DateTime.Now.Ticks >> 32))
     Private ReadOnly _adresses As New Dictionary(Of String, UShort)
+    Public Event Logger(type As String, msg As String)
+    Public Sub New()
 
-    Public Sub New(logger As Logger)
-        _logger = logger
         _bus = New SimplSerialBus()
         Try
             _bus.Connect()
@@ -33,7 +31,7 @@ Public Class SimplSerialManager
                 Try
                     _bus.Connect()
                 Catch ex As Exception
-                    _logger.AddWarning("SimplSerailManager - " + ex.Message)
+                    RaiseEvent Logger("WRN", "SimplSerailManager - " + ex.Message)
                 End Try
             End If
             res = _bus.IsConnected
@@ -51,7 +49,7 @@ Public Class SimplSerialManager
                         _bus.RequestSetAddress(addressGuid, shortAddr)
                     End If
                 Catch ex As Exception
-                    _logger.AddError("SimplSerialManager.GetResponse - " + ex.ToString)
+                    RaiseEvent Logger("WRN", "SimplSerailManager.GetResponse - " + ex.Message)
                 End Try
             End If
         End SyncLock

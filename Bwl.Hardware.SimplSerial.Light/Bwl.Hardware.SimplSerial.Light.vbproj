@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8E4A6915-A66B-4021-A40C-59FF6B36E56C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Bwl.Hardware.SimplSerial.Light</RootNamespace>
+    <AssemblyName>Bwl.Hardware.SimplSerial.Light</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\debug\simplserial-light\</OutputPath>
+    <DocumentationFile>Bwl.Hardware.SimplSerial.Light.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>..\release\simplserial-light\</OutputPath>
+    <DocumentationFile>Bwl.Hardware.SimplSerial.Light.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\bwl.Hardware.Serial\Interfaces\ISerialDevice.vb">
+      <Link>Serial\ISerialDevice.vb</Link>
+    </Compile>
+    <Compile Include="..\bwl.Hardware.Serial\Interfaces\ISerialDeviceSence.vb">
+      <Link>Serial\ISerialDeviceSence.vb</Link>
+    </Compile>
+    <Compile Include="..\bwl.Hardware.Serial\Interfaces\ISerialDeviceSignals.vb">
+      <Link>Serial\ISerialDeviceSignals.vb</Link>
+    </Compile>
+    <Compile Include="..\bwl.Hardware.Serial\Serial\FastSerialPort.vb">
+      <Link>Serial\FastSerialPort.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\FirmwareUploader.vb">
+      <Link>SimplSerial\FirmwareUploader.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Results\DeviceInfo.vb">
+      <Link>SimplSerial\Results\DeviceInfo.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Results\SSRequest.vb">
+      <Link>SimplSerial\Results\SSRequest.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Results\SSResponse.vb">
+      <Link>SimplSerial\Results\SSResponse.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\SimplSerialBus.vb">
+      <Link>SimplSerial\SimplSerialBus.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\SimplSerialManager.vb">
+      <Link>SimplSerial\SimplSerialManager.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\Crc16.vb">
+      <Link>SimplSerial\Tools\Crc16.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\HexToBinConverter.vb">
+      <Link>SimplSerial\Tools\HexToBinConverter.vb</Link>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>

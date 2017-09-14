@@ -5,12 +5,12 @@
 End Enum
 
 Public Interface ISerialDevice
-    Event BytesArrived(from As SerialDevice, ByVal count As Integer)
-    Event BytesRead(from As SerialDevice, ByVal bytes() As Byte, fromAutoRead As Boolean)
-    Event DeviceDisconnected(from As SerialDevice, reason As DisconnectReason)
-    Event DeviceConnected(from As SerialDevice)
+    Event BytesArrived(from As ISerialDevice, ByVal count As Integer)
+    Event BytesRead(from As ISerialDevice, ByVal bytes() As Byte, fromAutoRead As Boolean)
+    Event DeviceDisconnected(from As ISerialDevice, reason As DisconnectReason)
+    Event DeviceConnected(from As ISerialDevice)
     Event PropertiesChanged()
-    Event BytesSent(from As SerialDevice, ByVal bytes() As Byte)
+    Event BytesSent(from As ISerialDevice, ByVal bytes() As Byte)
 
     'Property DeviceIdentifier As String
     Property BetweenBytesPause() As Integer

@@ -176,13 +176,22 @@ Public Class SimplSerialTool
         Dim fastMode = 0
         If rbFast32.Checked Then fastMode = 32
         If rbFast128.Checked Then fastMode = 128
-        TryThis(Sub()
-                    If fastMode = 0 Then
-                        _flasher.EraseAndFlashAll(GetAddress(), FirmwareUploader.LoadFirmwareFromFile(firmwarePathTextbox.Text))
-                    Else
-                        _flasher.EraseAndFlashAllFast(GetAddress(), FirmwareUploader.LoadFirmwareFromFile(firmwarePathTextbox.Text), fastMode)
-                    End If
-                End Sub)
+
+        Dim thr As New Threading.Thread(Sub()
+                                            Me.Invoke(Sub() programMemButton.Enabled = False)
+                                            Try
+                                                If fastMode = 0 Then
+                                                    _flasher.EraseAndFlashAll(GetAddress(), FirmwareUploader.LoadFirmwareFromFile(firmwarePathTextbox.Text))
+                                                Else
+                                                    _flasher.EraseAndFlashAllFast(GetAddress(), FirmwareUploader.LoadFirmwareFromFile(firmwarePathTextbox.Text), fastMode)
+                                                End If
+                                            Catch ex As Exception
+                                                _logger.AddError(ex.Message)
+                                            End Try
+                                            Me.Invoke(Sub() programMemButton.Enabled = True)
+                                        End Sub)
+        thr.IsBackground = True
+        thr.Start()
     End Sub
 
     Private Sub gotoMain_Click(sender As Object, e As EventArgs) Handles gotoMain.Click
@@ -336,7 +345,7 @@ Public Class SimplSerialTool
     End Sub
 
     Private Sub selectFirmwarePathButton_Click(sender As Object, e As EventArgs) Handles selectFirmwarePathButton.Click
-        firmwarePathTextbox.Text = FirmwareUploader.SelectFirmwareFile
+        firmwarePathTextbox.Text = FirmwareUploaderGuiTools.SelectFirmwareFile
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click

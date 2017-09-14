@@ -38,12 +38,12 @@ Public MustInherit Class SerialDevice
     Private _autoConnectThread As New Thread(AddressOf AutoReaderThread)
     Dim _autoConnect As Boolean
 
-    Public Event BytesArrived(from As SerialDevice, ByVal count As Integer) Implements ISerialDevice.BytesArrived
-    Public Event BytesRead(from As SerialDevice, ByVal bytes() As Byte, fromAutoRead As Boolean) Implements ISerialDevice.BytesRead
-    Public Event DeviceDisconnected(from As SerialDevice, reason As DisconnectReason) Implements ISerialDevice.DeviceDisconnected
-    Public Event DeviceConnected(from As SerialDevice) Implements ISerialDevice.DeviceConnected
+    Public Event BytesArrived(from As ISerialDevice, ByVal count As Integer) Implements ISerialDevice.BytesArrived
+    Public Event BytesRead(from As ISerialDevice, ByVal bytes() As Byte, fromAutoRead As Boolean) Implements ISerialDevice.BytesRead
+    Public Event DeviceDisconnected(from As ISerialDevice, reason As DisconnectReason) Implements ISerialDevice.DeviceDisconnected
+    Public Event DeviceConnected(from As ISerialDevice) Implements ISerialDevice.DeviceConnected
     Public Event PropertiesChanged() Implements ISerialDevice.PropertiesChanged
-    Public Event BytesSent(from As SerialDevice, bytes() As Byte) Implements ISerialDevice.BytesSent
+    Public Event BytesSent(from As ISerialDevice, bytes() As Byte) Implements ISerialDevice.BytesSent
 
     Public Property BetweenBytesPause() As Integer Implements ISerialDevice.BetweenBytesPause
         Get

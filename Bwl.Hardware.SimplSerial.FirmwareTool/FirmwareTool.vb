@@ -524,7 +524,7 @@ Public Class FirmwareTool
     End Sub
 
     Private Sub selectFirmwarePathButton_Click(sender As Object, e As EventArgs) Handles selectFirmwarePathButton.Click
-        firmwarePathTextbox.Text = FirmwareUploader.SelectFirmwareFile
+        firmwarePathTextbox.Text = FirmwareUploaderGuiTools.SelectFirmwareFile
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles restartByDefault.Click

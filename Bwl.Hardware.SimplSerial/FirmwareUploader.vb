@@ -1,6 +1,4 @@
-﻿Imports System.Windows.Forms
-
-Public Class FirmwareUploader
+﻿Public Class FirmwareUploader
     Public Event Logger(type As String, msg As String)
 
     Private _sserial As SimplSerialBus
@@ -19,20 +17,12 @@ Public Class FirmwareUploader
     Public Property ProgmemSize As Integer
     Public Property Signature As String = ""
 
-    Public Shared Function SelectFirmwareFile() As String
-        Dim fd As New OpenFileDialog()
-        fd.Filter = "HEX|*.hex|BIN|*.bin"
-        If fd.ShowDialog = Windows.Forms.DialogResult.OK Then Return fd.FileName
-        Return ""
-    End Function
-
     Public Sub EraseAll(address As Integer)
         Dim spm = SpmSize
         Dim size = ProgmemSize - 1024 * 4
         For i = 0 To size - 1 Step spm
             Dim page As Integer = Math.Floor(i \ spm)
             RaiseEvent Logger("INF", "Erase: " + i.ToString + "\" + size.ToString)
-            Application.DoEvents()
             ErasePage(address, page)
         Next
     End Sub
@@ -92,7 +82,6 @@ Public Class FirmwareUploader
         For i = 0 To bin.Length - 1 Step spm
             Dim page As Integer = Math.Floor(i \ spm)
             RaiseEvent Logger("INF", "Program:   " + i.ToString + "\" + binLength.ToString)
-            Application.DoEvents()
             EraseFillWritePage(address, page, bin, i, spm)
         Next
     End Sub
@@ -166,8 +155,6 @@ Public Class FirmwareUploader
         Dim timeout = _sserial.RequestTimeout
         _sserial.RequestTimeout = 10000
         RaiseEvent Logger("INF", "Erase All Flash (Fast)...")
-        Application.DoEvents()
-        Application.DoEvents()
         Dim test = _sserial.Request(New SSRequest(address, 110, {0, 0, 0, 0}), 1)
         _sserial.RequestTimeout = timeout
         If test.ResponseState <> ResponseState.ok Then Throw New Exception(test.ResponseState.ToString)
@@ -204,7 +191,6 @@ Public Class FirmwareUploader
         For i = 0 To bin.Length - 1 Step spm
             Dim page As Integer = Math.Floor(i \ spm)
             RaiseEvent Logger("INF", "Program (Fast): " + i.ToString + "\" + binLength.ToString)
-            Application.DoEvents()
             FillWritePageFast(address, page, bin, i, spm, fastmode)
         Next
     End Sub

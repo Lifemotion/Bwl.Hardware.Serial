@@ -1,6 +1,4 @@
-﻿Imports bwl.Hardware.Serial
-
-Public Class FastSerialPort
+﻿Public Class FastSerialPort
     Implements ISerialDevice, ISerialDeviceSence, ISerialDeviceSignals
 
     Private _rs232 As New IO.Ports.SerialPort
@@ -11,13 +9,13 @@ Public Class FastSerialPort
     Public Property DeviceParameters As String = "" Implements ISerialDevice.DeviceParameters
     Public Property DeviceSpeed As Integer Implements ISerialDevice.DeviceSpeed
 
-    Public Event BytesArrived(from As SerialDevice, count As Integer) Implements ISerialDevice.BytesArrived
-    Public Event BytesRead(from As SerialDevice, bytes() As Byte, fromAutoRead As Boolean) Implements ISerialDevice.BytesRead
-    Public Event BytesSent(from As SerialDevice, bytes() As Byte) Implements ISerialDevice.BytesSent
-    Public Event DeviceConnected(from As SerialDevice) Implements ISerialDevice.DeviceConnected
-    Public Event DeviceDisconnected(from As SerialDevice, reason As DisconnectReason) Implements ISerialDevice.DeviceDisconnected
-    Public Event DeviceAbsent(from As SerialDevice) Implements ISerialDeviceSence.DeviceAbsent
-    Public Event DevicePresent(from As SerialDevice) Implements ISerialDeviceSence.DevicePresent
+    Public Event BytesArrived(from As ISerialDevice, count As Integer) Implements ISerialDevice.BytesArrived
+    Public Event BytesRead(from As ISerialDevice, bytes() As Byte, fromAutoRead As Boolean) Implements ISerialDevice.BytesRead
+    Public Event BytesSent(from As ISerialDevice, bytes() As Byte) Implements ISerialDevice.BytesSent
+    Public Event DeviceConnected(from As ISerialDevice) Implements ISerialDevice.DeviceConnected
+    Public Event DeviceDisconnected(from As ISerialDevice, reason As DisconnectReason) Implements ISerialDevice.DeviceDisconnected
+    Public Event DeviceAbsent(from As ISerialDevice) Implements ISerialDeviceSence.DeviceAbsent
+    Public Event DevicePresent(from As ISerialDevice) Implements ISerialDeviceSence.DevicePresent
 
     Public Sub Connect() Implements ISerialDevice.Connect
         SyncLock _rs232

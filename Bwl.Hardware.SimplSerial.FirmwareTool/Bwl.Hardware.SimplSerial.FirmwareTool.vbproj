@@ -106,6 +106,9 @@
     <Compile Include="..\Bwl.Hardware.SimplSerial\FirmwareUploader.vb">
       <Link>EmbeddedSimplSerial\FirmwareUploader.vb</Link>
     </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\FirmwareUploaderGuiTools.vb">
+      <Link>EmbeddedSimplSerial\FirmwareUploaderGuiTools.vb</Link>
+    </Compile>
     <Compile Include="..\Bwl.Hardware.SimplSerial\Results\DeviceInfo.vb">
       <Link>EmbeddedSimplSerial\DeviceInfo.vb</Link>
     </Compile>

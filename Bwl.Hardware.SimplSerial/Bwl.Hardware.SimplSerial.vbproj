@@ -94,6 +94,7 @@
     <Compile Include="EmbeddedFw\Logger\LoggerForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FirmwareUploaderGuiTools.vb" />
     <Compile Include="Tools\ByteMonitor.Designer.vb">
       <DependentUpon>ByteMonitor.vb</DependentUpon>
     </Compile>
