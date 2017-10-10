@@ -364,6 +364,7 @@ Public Class SimplSerialBus
         Return Request(New SSRequest(address, command, data))
     End Function
 
+    Public Property DebugIgnoreCrcErrors As Boolean = False
     ''' <summary>
     ''' Выполнить запрос и получить ответ. 
     ''' </summary>
@@ -427,9 +428,21 @@ Public Class SimplSerialBus
                                             RaiseEvent Logger("DBG", "SS -> " + result.ToString)
                                             Return result
                                         Else
-                                            result.ResponseState = ResponseState.errorCrc
-                                            RaiseEvent Logger("DBG", "SS -> " + result.ToString)
-                                            Return result
+                                            If Not DebugIgnoreCrcErrors Then
+                                                result.ResponseState = ResponseState.errorCrc
+                                                RaiseEvent Logger("DBG", "SS -> " + result.ToString)
+                                                Return result
+                                            Else
+                                                result.FromAddress = receivedBuffer(0) * 256 + receivedBuffer(1)
+                                                result.Result = receivedBuffer(2)
+                                                Dim length = receivedLength - 5
+                                                result.Data = Array.CreateInstance(GetType(Byte), length)
+                                                Array.ConstrainedCopy(receivedBuffer, 3, result.Data, 0, length)
+                                                result.ResponseState = ResponseState.ok
+                                                RaiseEvent Logger("WRN", "SS Crc Error ignored: " + recvCrc.ToString + " vs" + realCrc.ToString)
+                                                RaiseEvent Logger("DBG", "SS -> " + result.ToString)
+                                                Return result
+                                            End If
                                         End If
                                     End If
                                 Case &H98
@@ -524,7 +537,7 @@ Public Class SimplSerialBus
         Dim ascii = Text.ASCIIEncoding.ASCII
         Dim info As New DeviceInfo With {.Response = result}
         If result.ResponseState = ResponseState.ok Then
-            If result.Result = 0 And result.Data.Length >= 54 Then
+            If (result.Result = 0 And result.Data.Length >= 54) Or DebugIgnoreCrcErrors Then
                 Dim arr(15) As Byte
                 For i = 0 To 15
                     arr(i) = result.Data(i)
