@@ -95,6 +95,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FirmwareUploaderGuiTools.vb" />
+    <Compile Include="Manager\ISimplSerialDevice.vb" />
+    <Compile Include="Manager\ISimplSerialDeviceDescriptor.vb" />
     <Compile Include="Tools\ByteMonitor.Designer.vb">
       <DependentUpon>ByteMonitor.vb</DependentUpon>
     </Compile>
