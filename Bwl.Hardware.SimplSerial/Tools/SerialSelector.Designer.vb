@@ -32,7 +32,7 @@ Partial Class SerialSelector
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Location = New System.Drawing.Point(3, 0)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(129, 21)
+        Me.ComboBox1.Size = New System.Drawing.Size(92, 21)
         Me.ComboBox1.TabIndex = 0
         '
         'ComboBox2
@@ -41,15 +41,15 @@ Partial Class SerialSelector
         Me.ComboBox2.Items.AddRange(New Object() {"1200", "2400", "4800", "9600", "19200", "38400", "115200"})
         Me.ComboBox2.Location = New System.Drawing.Point(3, 27)
         Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(57, 21)
+        Me.ComboBox2.Size = New System.Drawing.Size(92, 21)
         Me.ComboBox2.TabIndex = 1
         Me.ComboBox2.Text = "9600"
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(67, 26)
+        Me.Button1.Location = New System.Drawing.Point(3, 54)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(66, 23)
+        Me.Button1.Size = New System.Drawing.Size(92, 23)
         Me.Button1.TabIndex = 2
         Me.Button1.Text = "Обновить"
         Me.Button1.UseVisualStyleBackColor = True
@@ -62,7 +62,7 @@ Partial Class SerialSelector
         Me.Controls.Add(Me.ComboBox2)
         Me.Controls.Add(Me.ComboBox1)
         Me.Name = "SerialSelector"
-        Me.Size = New System.Drawing.Size(135, 55)
+        Me.Size = New System.Drawing.Size(100, 83)
         Me.ResumeLayout(False)
 
     End Sub

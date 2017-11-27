@@ -913,7 +913,7 @@ Partial Class SimplSerialTool
         Me.GroupBox1.Controls.Add(Me.Label9)
         Me.GroupBox1.Location = New System.Drawing.Point(10, 27)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(208, 86)
+        Me.GroupBox1.Size = New System.Drawing.Size(208, 124)
         Me.GroupBox1.TabIndex = 29
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Параметры шины"
@@ -931,10 +931,12 @@ Partial Class SimplSerialTool
         '
         Me.SerialSelector1.AllowPortChange = True
         Me.SerialSelector1.AllowSpeedChange = True
+        Me.SerialSelector1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SerialSelector1.AssociatedISerialDevice = Nothing
         Me.SerialSelector1.Location = New System.Drawing.Point(65, 24)
         Me.SerialSelector1.Name = "SerialSelector1"
-        Me.SerialSelector1.Size = New System.Drawing.Size(132, 52)
+        Me.SerialSelector1.Size = New System.Drawing.Size(137, 88)
         Me.SerialSelector1.TabIndex = 13
         '
         'GroupBox2
