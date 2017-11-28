@@ -48,7 +48,19 @@
     Public Sub AutoFlash(guid As Guid, firmware As Byte(), Optional fastMode As Integer = 0)
         Dim address = _rnd.Next(1, 30000)
         _sserial.RequestSetAddress(guid, address)
-        AutoFlash(address, firmware, fastMode)
+
+        Try
+            _sserial.RequestGoToBootloader(address)
+        Catch ex As Exception
+        End Try
+
+        _sserial.RequestSetAddress(guid, address)
+        RequestBootInfo(address)
+        If fastMode > 0 Then
+            EraseAndFlashAllFast(address, firmware, fastMode)
+        Else
+            EraseAndFlashAll(address, firmware)
+        End If
     End Sub
 
     Public Sub AutoFlash(address As Integer, firmware As Byte(), Optional fastMode As Integer = 0)

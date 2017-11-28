@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DF7F64BC-32B4-410F-99C8-396EAEEA1DCC}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>Bwl.Hardware.SimplSerial.My.MyApplication</StartupObject>
+    <StartupObject>Sub Main</StartupObject>
     <RootNamespace>Bwl.Hardware.SimplSerial</RootNamespace>
     <AssemblyName>SsFirmwareTool</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>WindowsForms</MyType>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -49,7 +49,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Download droit.ico</ApplicationIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -144,6 +144,13 @@
     <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\Crc8.vb">
       <Link>EmbeddedSimplSerial\Crc8.vb</Link>
     </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\FirmwareUpdaterTool.Designer.vb">
+      <Link>EmbeddedSimplSerial\FirmwareUpdaterTool.Designer.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\FirmwareUpdaterTool.vb">
+      <Link>EmbeddedSimplSerial\FirmwareUpdaterTool.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\HexToBinConverter.vb">
       <Link>EmbeddedSimplSerial\HexToBinConverter.vb</Link>
     </Compile>
@@ -171,6 +178,7 @@
     <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\Strings.vb">
       <Link>EmbeddedSimplSerial\Strings.vb</Link>
     </Compile>
+    <Compile Include="App.vb" />
     <Compile Include="EmbeddedSerial\FastSerialPort.vb" />
     <Compile Include="EmbeddedSerial\ISerialDevice.vb" />
     <Compile Include="EmbeddedSerial\ISerialDeviceSence.vb" />
@@ -192,12 +200,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="FirmwareTool.Designer.vb">
-      <DependentUpon>FirmwareTool.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FirmwareTool.vb">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Bwl.Hardware.SimplSerial\EmbeddedFw\Logger\LogWriters\Realizations\DatagridLogWriter.resx">
@@ -211,6 +213,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\Bwl.Hardware.SimplSerial\Tools\CodeExecutor.resx">
       <Link>EmbeddedSimplSerial\CodeExecutor.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Bwl.Hardware.SimplSerial\Tools\FirmwareUpdaterTool.resx">
+      <Link>EmbeddedSimplSerial\FirmwareUpdaterTool.resx</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Bwl.Hardware.SimplSerial\Tools\PortMonitor.resx">
       <Link>EmbeddedSimplSerial\PortMonitor.resx</Link>
@@ -227,9 +232,6 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FirmwareTool.resx">
-      <DependentUpon>FirmwareTool.vb</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">
@@ -243,7 +245,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Download droit.ico" />
+    <Content Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

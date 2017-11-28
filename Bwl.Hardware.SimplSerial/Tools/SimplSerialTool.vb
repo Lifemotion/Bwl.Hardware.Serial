@@ -185,6 +185,7 @@ Public Class SimplSerialTool
                                                 Else
                                                     _flasher.EraseAndFlashAllFast(GetAddress(), FirmwareUploader.LoadFirmwareFromFile(firmwarePathTextbox.Text), fastMode)
                                                 End If
+                                                _logger.AddMessage("Прошивка успешно завершена")
                                             Catch ex As Exception
                                                 _logger.AddError(ex.Message)
                                             End Try
