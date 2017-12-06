@@ -46,12 +46,11 @@ Partial Class FirmwareUpdaterTool
         Me.tbConnectedAddress = New System.Windows.Forms.TextBox()
         Me.tbConnectedGuid = New System.Windows.Forms.TextBox()
         Me.bUpdate = New System.Windows.Forms.Button()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.SerialSelector1 = New Bwl.Hardware.SimplSerial.SerialSelector()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.DatagridLogWriter1 = New Bwl.Hardware.SimplSerial.DatagridLogWriter()
         Me.bFindDevice = New System.Windows.Forms.Button()
+        Me.SerialSelector1 = New Bwl.Hardware.SimplSerial.SerialSelector()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.bSimplSerialTool = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -117,7 +116,7 @@ Partial Class FirmwareUpdaterTool
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.tbFindMainName)
-        Me.GroupBox1.Location = New System.Drawing.Point(199, 12)
+        Me.GroupBox1.Location = New System.Drawing.Point(121, 12)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(280, 103)
         Me.GroupBox1.TabIndex = 6
@@ -130,9 +129,9 @@ Partial Class FirmwareUpdaterTool
         Me.GroupBox2.Controls.Add(Me.Label5)
         Me.GroupBox2.Controls.Add(Me.Label6)
         Me.GroupBox2.Controls.Add(Me.tbUpdateName)
-        Me.GroupBox2.Location = New System.Drawing.Point(199, 130)
+        Me.GroupBox2.Location = New System.Drawing.Point(407, 12)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(280, 76)
+        Me.GroupBox2.Size = New System.Drawing.Size(325, 103)
         Me.GroupBox2.TabIndex = 7
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Файл обновления"
@@ -142,7 +141,7 @@ Partial Class FirmwareUpdaterTool
         Me.tbUpdateFile.Location = New System.Drawing.Point(119, 19)
         Me.tbUpdateFile.Name = "tbUpdateFile"
         Me.tbUpdateFile.ReadOnly = True
-        Me.tbUpdateFile.Size = New System.Drawing.Size(148, 20)
+        Me.tbUpdateFile.Size = New System.Drawing.Size(200, 20)
         Me.tbUpdateFile.TabIndex = 0
         '
         'Label5
@@ -168,7 +167,7 @@ Partial Class FirmwareUpdaterTool
         Me.tbUpdateName.Location = New System.Drawing.Point(119, 45)
         Me.tbUpdateName.Name = "tbUpdateName"
         Me.tbUpdateName.ReadOnly = True
-        Me.tbUpdateName.Size = New System.Drawing.Size(148, 20)
+        Me.tbUpdateName.Size = New System.Drawing.Size(200, 20)
         Me.tbUpdateName.TabIndex = 2
         '
         'GroupBox3
@@ -182,7 +181,7 @@ Partial Class FirmwareUpdaterTool
         Me.GroupBox3.Controls.Add(Me.Label9)
         Me.GroupBox3.Controls.Add(Me.tbConnectedAddress)
         Me.GroupBox3.Controls.Add(Me.tbConnectedGuid)
-        Me.GroupBox3.Location = New System.Drawing.Point(485, 12)
+        Me.GroupBox3.Location = New System.Drawing.Point(120, 121)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(400, 130)
         Me.GroupBox3.TabIndex = 8
@@ -268,54 +267,12 @@ Partial Class FirmwareUpdaterTool
         '
         'bUpdate
         '
-        Me.bUpdate.Location = New System.Drawing.Point(686, 163)
+        Me.bUpdate.Location = New System.Drawing.Point(526, 170)
         Me.bUpdate.Name = "bUpdate"
-        Me.bUpdate.Size = New System.Drawing.Size(199, 43)
+        Me.bUpdate.Size = New System.Drawing.Size(206, 39)
         Me.bUpdate.TabIndex = 9
         Me.bUpdate.Text = "Найти и обновить"
         Me.bUpdate.UseVisualStyleBackColor = True
-        '
-        'GroupBox4
-        '
-        Me.GroupBox4.Controls.Add(Me.Label19)
-        Me.GroupBox4.Controls.Add(Me.SerialSelector1)
-        Me.GroupBox4.Controls.Add(Me.Label8)
-        Me.GroupBox4.Location = New System.Drawing.Point(12, 12)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(177, 103)
-        Me.GroupBox4.TabIndex = 11
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Подключение"
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(7, 49)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(58, 13)
-        Me.Label19.TabIndex = 25
-        Me.Label19.Text = "Скорость:"
-        '
-        'SerialSelector1
-        '
-        Me.SerialSelector1.AllowPortChange = True
-        Me.SerialSelector1.AllowSpeedChange = True
-        Me.SerialSelector1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SerialSelector1.AssociatedISerialDevice = Nothing
-        Me.SerialSelector1.Location = New System.Drawing.Point(66, 16)
-        Me.SerialSelector1.Name = "SerialSelector1"
-        Me.SerialSelector1.Size = New System.Drawing.Size(105, 81)
-        Me.SerialSelector1.TabIndex = 23
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(7, 19)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(35, 13)
-        Me.Label8.TabIndex = 24
-        Me.Label8.Text = "Порт:"
         '
         'DatagridLogWriter1
         '
@@ -323,7 +280,7 @@ Partial Class FirmwareUpdaterTool
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DatagridLogWriter1.ExtendedView = True
         Me.DatagridLogWriter1.FilterText = ""
-        Me.DatagridLogWriter1.Location = New System.Drawing.Point(1, 226)
+        Me.DatagridLogWriter1.Location = New System.Drawing.Point(0, 254)
         Me.DatagridLogWriter1.LogEnabled = True
         Me.DatagridLogWriter1.Margin = New System.Windows.Forms.Padding(0)
         Me.DatagridLogWriter1.Name = "DatagridLogWriter1"
@@ -332,23 +289,55 @@ Partial Class FirmwareUpdaterTool
         Me.DatagridLogWriter1.ShowInformation = True
         Me.DatagridLogWriter1.ShowMessages = True
         Me.DatagridLogWriter1.ShowWarnings = True
-        Me.DatagridLogWriter1.Size = New System.Drawing.Size(895, 238)
+        Me.DatagridLogWriter1.Size = New System.Drawing.Size(742, 150)
         Me.DatagridLogWriter1.TabIndex = 12
         '
         'bFindDevice
         '
-        Me.bFindDevice.Location = New System.Drawing.Point(485, 163)
+        Me.bFindDevice.Location = New System.Drawing.Point(526, 127)
         Me.bFindDevice.Name = "bFindDevice"
-        Me.bFindDevice.Size = New System.Drawing.Size(195, 43)
+        Me.bFindDevice.Size = New System.Drawing.Size(206, 39)
         Me.bFindDevice.TabIndex = 13
         Me.bFindDevice.Text = "Найти устройство"
         Me.bFindDevice.UseVisualStyleBackColor = True
+        '
+        'SerialSelector1
+        '
+        Me.SerialSelector1.AllowPortChange = True
+        Me.SerialSelector1.AllowSpeedChange = True
+        Me.SerialSelector1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SerialSelector1.AssociatedISerialDevice = Nothing
+        Me.SerialSelector1.Location = New System.Drawing.Point(6, 19)
+        Me.SerialSelector1.Name = "SerialSelector1"
+        Me.SerialSelector1.Size = New System.Drawing.Size(98, 81)
+        Me.SerialSelector1.TabIndex = 23
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.SerialSelector1)
+        Me.GroupBox4.Location = New System.Drawing.Point(5, 12)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(110, 103)
+        Me.GroupBox4.TabIndex = 11
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Подключение"
+        '
+        'bSimplSerialTool
+        '
+        Me.bSimplSerialTool.Location = New System.Drawing.Point(526, 219)
+        Me.bSimplSerialTool.Name = "bSimplSerialTool"
+        Me.bSimplSerialTool.Size = New System.Drawing.Size(206, 23)
+        Me.bSimplSerialTool.TabIndex = 14
+        Me.bSimplSerialTool.Text = "SimplSerial Tool"
+        Me.bSimplSerialTool.UseVisualStyleBackColor = True
         '
         'FirmwareUpdaterTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(897, 466)
+        Me.ClientSize = New System.Drawing.Size(744, 401)
+        Me.Controls.Add(Me.bSimplSerialTool)
         Me.Controls.Add(Me.bFindDevice)
         Me.Controls.Add(Me.DatagridLogWriter1)
         Me.Controls.Add(Me.GroupBox4)
@@ -367,7 +356,6 @@ Partial Class FirmwareUpdaterTool
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
-        Me.GroupBox4.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -393,12 +381,11 @@ Partial Class FirmwareUpdaterTool
     Friend WithEvents tbConnectedAddress As TextBox
     Friend WithEvents bUpdate As Button
     Friend WithEvents bRequestInfo As Button
-    Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents Label19 As Label
-    Friend WithEvents SerialSelector1 As SerialSelector
-    Friend WithEvents Label8 As Label
     Friend WithEvents DatagridLogWriter1 As DatagridLogWriter
     Friend WithEvents Label10 As Label
     Friend WithEvents tbConnectedDate As TextBox
     Friend WithEvents bFindDevice As Button
+    Friend WithEvents SerialSelector1 As SerialSelector
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents bSimplSerialTool As Button
 End Class

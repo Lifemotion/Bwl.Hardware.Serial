@@ -27,6 +27,13 @@
         Next
     End Sub
 
+    Public Shared Function LoadFirmwareFromHexString(hexString As String) As Byte()
+        Dim str = hexString.Split({vbCr, vbLf}, StringSplitOptions.RemoveEmptyEntries)
+        Dim converter = New HexToBinConverter()
+        Dim bin = converter.Hex2Bin(str)
+        Return bin
+    End Function
+
     Public Shared Function LoadFirmwareFromFile(file As String) As Byte()
         Dim bin As Byte()
         Dim ext = IO.Path.GetExtension(file).ToLower

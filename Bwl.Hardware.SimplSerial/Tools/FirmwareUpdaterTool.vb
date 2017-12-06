@@ -1,31 +1,26 @@
 ﻿Imports Bwl.Hardware.SimplSerial
 
+
+
 Public Class FirmwareUpdaterTool
-    Private _hexName As String
     Private _ss As SimplSerialBus
     Private _fwUpdater As FirmwareUploader
-    Private _bootName As String
-    Private _mainName As String
-    Private _workAddress As Integer
+    Private _parameters As FirmwareUpdaterParameters
     Private _logger As New Logger
     Private _fwBin As Byte()
-    Private _additionalRestart As Boolean
 
-    Public Sub New(hexName As String, ss As SimplSerialBus, bootName As String, mainName As String, workAddress As Integer, baud As Integer, additionalRestart As Boolean)
-        _hexName = hexName
+    Public Sub New(fwBin As Byte(), updateFileName As String, ss As SimplSerialBus, parameters As FirmwareUpdaterParameters)
+        _parameters = parameters
         _ss = ss
-        _bootName = bootName
-        _mainName = mainName
-        _workAddress = workAddress
-        _additionalRestart = additionalRestart
+
         InitializeComponent()
-        tbFindBootName.Text = bootName
-        tbFindMainName.Text = mainName
-        tbFindWorkAddress.Text = workAddress
+        tbFindBootName.Text = _parameters.bootName
+        tbFindMainName.Text = _parameters.mainName
+        tbFindWorkAddress.Text = _parameters.workAddress
 
         If ss Is Nothing Then
             Me._ss = New SimplSerialBus
-            Me._ss.SerialDevice.DeviceSpeed = baud
+            Me._ss.SerialDevice.DeviceSpeed = _parameters.baud
             SerialSelector1.Enabled = True
         Else
             SerialSelector1.Enabled = False
@@ -44,11 +39,11 @@ Public Class FirmwareUpdaterTool
                                           End Select
                                       End Sub
         _logger.ConnectWriter(DatagridLogWriter1)
-        tbUpdateFile.Text = IO.Path.GetFileName(hexName).Split(",")("0")
-        _fwBin = FirmwareUploader.LoadFirmwareFromFile(hexName)
+        tbUpdateFile.Text = updateFileName
+        _fwBin = fwBin
         Try
             Dim text = System.Text.Encoding.ASCII.GetString(_fwBin)
-            Dim pos = InStr(text, mainName)
+            Dim pos = InStr(text, _parameters.mainName)
             If pos > 0 Then
                 For i = pos To text.Length - 1
                     If _fwBin(i) = 0 Then
@@ -61,7 +56,7 @@ Public Class FirmwareUpdaterTool
         Catch ex As Exception
             tbUpdateName.Text = "не удалось извлечь"
         End Try
-        Text = mainName + ", " + bootName + " - " + Text + " " + Application.ProductVersion.ToString
+        Text = _parameters.mainName + ", " + _parameters.bootName + " - " + Text + " " + Application.ProductVersion.ToString
     End Sub
 
     Public Sub CheckConnected()
@@ -122,9 +117,9 @@ Public Class FirmwareUpdaterTool
 
     Private Function FindDevice() As Guid
         CheckConnected()
-        _logger.AddMessage("Простой поиск устройства (Address=" + _workAddress.ToString + ")")
-        Dim guid As Guid = FindDeviceSimple(_workAddress)
-        If guid.ToString = Guid.Empty.ToString And _workAddress > 0 Then
+        _logger.AddMessage("Простой поиск устройства (Address=" + _parameters.workAddress.ToString + ")")
+        Dim guid As Guid = FindDeviceSimple(_parameters.workAddress)
+        If guid.ToString = Guid.Empty.ToString And _parameters.workAddress > 0 Then
             _logger.AddMessage("Простой поиск устройства (Address=" + 0.ToString + ")")
             guid = FindDeviceSimple(0)
         End If
@@ -136,15 +131,15 @@ Public Class FirmwareUpdaterTool
         Dim info = _ss.RequestDeviceInfo(address)
         ShowInfo(info)
         If info.BootloaderMode Then
-            If _bootName > "" And info.DeviceName.Contains(_bootName) Then
+            If _parameters.bootName > "" And info.DeviceName.Contains(_parameters.bootName) Then
                 _logger.AddMessage("Найдено устройство " + info.DeviceName +
-                                   " в режиме загрузчика, с совпадающим именем (" + _bootName + ").")
+                                   " в режиме загрузчика, с совпадающим именем (" + _parameters.bootName + ").")
                 Return info.DeviceGuid
             End If
         Else
-            If _mainName > "" And info.DeviceName.Contains(_mainName) Then
+            If _parameters.mainName > "" And info.DeviceName.Contains(_parameters.mainName) Then
                 _logger.AddMessage("Найдено устройство " + info.DeviceName +
-                                   " в основном режиме, с совпадающим именем (" + _mainName + ").")
+                                   " в основном режиме, с совпадающим именем (" + _parameters.mainName + ").")
                 Return info.DeviceGuid
             End If
         End If
@@ -153,7 +148,7 @@ Public Class FirmwareUpdaterTool
 
     Private Sub FirmwareUpdate(guid As Guid)
         _logger.AddMessage("Начало обновления для " + guid.ToString)
-        Dim address = _workAddress
+        Dim address = _parameters.workAddress
         If address = 0 Then
             Dim rnd As New Random
             address = rnd.Next(1, 30000)
@@ -168,7 +163,7 @@ Public Class FirmwareUpdaterTool
         _ss.RequestSetAddress(guid, address)
         _fwUpdater.EraseAllFast(address)
         'перезагружаемся, чтобы контроллер перешел в дефолтный режим
-        If _additionalRestart Then
+        If _parameters.additionalRestart Then
             _logger.AddMessage("Дополнительный рестарт")
             _ss.RequestRestart(address)
             Threading.Thread.Sleep(1000)
@@ -194,7 +189,7 @@ Public Class FirmwareUpdaterTool
                 Dim info = _ss.RequestDeviceInfo(address)
                 ShowInfo(info)
                 If info.BootloaderMode = False And info.DeviceName > "" Then
-                    If info.DeviceName.Contains(_mainName) Or _mainName = "" Then
+                    If info.DeviceName.Contains(_parameters.mainName) Or _parameters.mainName = "" Then
                         _logger.AddMessage("Устройство вышло из загрузчика и имеет правильное имя " + info.DeviceName)
                         _logger.AddMessage("Процедура обновления полностью завершена.")
                         Exit Sub
@@ -214,7 +209,7 @@ Public Class FirmwareUpdaterTool
         Try
             If tbConnectedGuid.Text = "" Then Throw New Exception("Устройство еще не было найдено.")
             CheckConnected()
-            Dim address = _workAddress
+            Dim address = _parameters.workAddress
             If address = 0 Then
                 Dim rnd As New Random
                 address = rnd.Next(1, 3000)
@@ -226,5 +221,38 @@ Public Class FirmwareUpdaterTool
         Catch ex As Exception
             _logger.AddError(ex.Message + " Невозможно продолжить.")
         End Try
+    End Sub
+
+    Private Sub bSimplSerialTool_Click(sender As Object, e As EventArgs) Handles bSimplSerialTool.Click
+        Dim tool As New SimplSerialTool(_ss)
+        tool.Show()
+    End Sub
+End Class
+
+Public Class FirmwareUpdaterParameters
+    Public bootName As String = ""
+    Public mainName As String = ""
+    Public workAddress As Integer
+    Public baud As Integer
+    Public additionalRestart As Boolean
+
+    Public Sub New()
+
+    End Sub
+
+    Public Sub New(parametersString As String)
+        Dim parametersStrings = parametersString.Split(",")
+        For Each keyValueString In parametersStrings
+            Dim keyValue = keyValueString.Split("=")
+            If keyValue.Length = 2 Then
+                Select Case keyValue(0)
+                    Case "BN" : bootName = keyValue(1)
+                    Case "MN" : mainName = keyValue(1)
+                    Case "WA" : workAddress = keyValue(1)
+                    Case "BAUD" : baud = keyValue(1)
+                    Case "AR" : additionalRestart = keyValue(1).Trim.ToLower = "true"
+                End Select
+            End If
+        Next
     End Sub
 End Class
