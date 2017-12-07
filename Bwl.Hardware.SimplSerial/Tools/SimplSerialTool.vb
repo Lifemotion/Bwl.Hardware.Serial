@@ -77,7 +77,7 @@ Public Class SimplSerialTool
                     If info.Response.ResponseState = ResponseState.ok Then
                         devAddressTextbox.Text = info.Response.FromAddress.ToString
                         devDateTextbox.Text = info.DeviceDate
-                        devguidTextbox.Text = info.DeviceGuid.ToString
+                        devguidTextbox.Text = info.DeviceGuid.ToString + " (" + (info.DeviceGuid.ToByteArray(15) + +info.DeviceGuid.ToByteArray(14) * 256).ToString + ")"
                         devnameTextbox.Text = info.DeviceName
                         If info.BootloaderMode Then
                             bootstateTextbox.Text = "режим загрузчика, " + info.BootName

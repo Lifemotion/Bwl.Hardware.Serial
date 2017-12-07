@@ -73,7 +73,7 @@ Public Class FirmwareUpdaterTool
     Private Sub ShowInfo(info As DeviceInfo)
         Me.Invoke(Sub()
                       tbConnectedAddress.Text = info.Response.FromAddress
-                      tbConnectedGuid.Text = info.DeviceGuid.ToString
+                      tbConnectedGuid.Text = info.DeviceGuid.ToString + " (" + (info.DeviceGuid.ToByteArray(15) + +info.DeviceGuid.ToByteArray(14) * 256).ToString + ")"
                       tbConnectedName.Text = info.DeviceName
                       tbConnectedDate.Text = info.DeviceDate
                   End Sub)
