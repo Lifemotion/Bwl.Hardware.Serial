@@ -68,6 +68,9 @@
     <Compile Include="..\Bwl.Hardware.SimplSerial\FirmwareUploader.vb">
       <Link>SimplSerial\FirmwareUploader.vb</Link>
     </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\ISimplSerialBus.vb">
+      <Link>SimplSerial\ISimplSerialBus.vb</Link>
+    </Compile>
     <Compile Include="..\Bwl.Hardware.SimplSerial\Results\DeviceInfo.vb">
       <Link>SimplSerial\Results\DeviceInfo.vb</Link>
     </Compile>
@@ -79,6 +82,9 @@
     </Compile>
     <Compile Include="..\Bwl.Hardware.SimplSerial\SimplSerialBus.vb">
       <Link>SimplSerial\SimplSerialBus.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\SimplSerialBusExtensions.vb">
+      <Link>SimplSerial\SimplSerialBusExtensions.vb</Link>
     </Compile>
     <Compile Include="..\Bwl.Hardware.SimplSerial\SimplSerialManager.vb">
       <Link>SimplSerial\SimplSerialManager.vb</Link>

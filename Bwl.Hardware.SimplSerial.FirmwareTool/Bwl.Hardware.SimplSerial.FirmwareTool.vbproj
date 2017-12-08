@@ -109,6 +109,9 @@
     <Compile Include="..\Bwl.Hardware.SimplSerial\FirmwareUploaderGuiTools.vb">
       <Link>EmbeddedSimplSerial\FirmwareUploaderGuiTools.vb</Link>
     </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\ISimplSerialBus.vb">
+      <Link>EmbeddedSimplSerial\ISimplSerialBus.vb</Link>
+    </Compile>
     <Compile Include="..\Bwl.Hardware.SimplSerial\Results\DeviceInfo.vb">
       <Link>EmbeddedSimplSerial\DeviceInfo.vb</Link>
     </Compile>
@@ -120,6 +123,9 @@
     </Compile>
     <Compile Include="..\Bwl.Hardware.SimplSerial\SimplSerialBus.vb">
       <Link>EmbeddedSimplSerial\SimplSerialBus.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\SimplSerialBusExtensions.vb">
+      <Link>EmbeddedSimplSerial\SimplSerialBusExtensions.vb</Link>
     </Compile>
     <Compile Include="..\Bwl.Hardware.SimplSerial\SimplSerialManager.vb">
       <Link>EmbeddedSimplSerial\SimplSerialManager.vb</Link>
