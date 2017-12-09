@@ -51,6 +51,8 @@ Partial Class FirmwareUpdaterTool
         Me.SerialSelector1 = New Bwl.Hardware.SimplSerial.SerialSelector()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.bSimplSerialTool = New System.Windows.Forms.Button()
+        Me.tbClientAddress = New System.Windows.Forms.TextBox()
+        Me.bConnectToClient = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -310,15 +312,17 @@ Partial Class FirmwareUpdaterTool
         Me.SerialSelector1.AssociatedISerialDevice = Nothing
         Me.SerialSelector1.Location = New System.Drawing.Point(6, 19)
         Me.SerialSelector1.Name = "SerialSelector1"
-        Me.SerialSelector1.Size = New System.Drawing.Size(98, 81)
+        Me.SerialSelector1.Size = New System.Drawing.Size(98, 84)
         Me.SerialSelector1.TabIndex = 23
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.tbClientAddress)
         Me.GroupBox4.Controls.Add(Me.SerialSelector1)
+        Me.GroupBox4.Controls.Add(Me.bConnectToClient)
         Me.GroupBox4.Location = New System.Drawing.Point(5, 12)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(110, 103)
+        Me.GroupBox4.Size = New System.Drawing.Size(110, 239)
         Me.GroupBox4.TabIndex = 11
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Подключение"
@@ -331,6 +335,23 @@ Partial Class FirmwareUpdaterTool
         Me.bSimplSerialTool.TabIndex = 14
         Me.bSimplSerialTool.Text = "SimplSerial Tool"
         Me.bSimplSerialTool.UseVisualStyleBackColor = True
+        '
+        'tbClientAddress
+        '
+        Me.tbClientAddress.Location = New System.Drawing.Point(7, 168)
+        Me.tbClientAddress.Name = "tbClientAddress"
+        Me.tbClientAddress.Size = New System.Drawing.Size(97, 20)
+        Me.tbClientAddress.TabIndex = 25
+        Me.tbClientAddress.Text = "localhost:4960"
+        '
+        'bConnectToClient
+        '
+        Me.bConnectToClient.Location = New System.Drawing.Point(6, 194)
+        Me.bConnectToClient.Name = "bConnectToClient"
+        Me.bConnectToClient.Size = New System.Drawing.Size(98, 36)
+        Me.bConnectToClient.TabIndex = 24
+        Me.bConnectToClient.Text = "Подключиться по сети"
+        Me.bConnectToClient.UseVisualStyleBackColor = True
         '
         'FirmwareUpdaterTool
         '
@@ -356,6 +377,7 @@ Partial Class FirmwareUpdaterTool
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -388,4 +410,6 @@ Partial Class FirmwareUpdaterTool
     Friend WithEvents SerialSelector1 As SerialSelector
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents bSimplSerialTool As Button
+    Friend WithEvents tbClientAddress As TextBox
+    Friend WithEvents bConnectToClient As Button
 End Class

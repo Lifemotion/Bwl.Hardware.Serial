@@ -22,6 +22,7 @@ Partial Class SimplSerialTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SimplSerialTool))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
@@ -98,12 +99,16 @@ Partial Class SimplSerialTool
         Me.НастройкиToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ЛогToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.reqGuidTextbox = New System.Windows.Forms.TextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
+        Me.lPort = New System.Windows.Forms.Label()
         Me.bootstateTextbox = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.addInfoTextbox = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Label19 = New System.Windows.Forms.Label()
+        Me.tbClientAddress = New System.Windows.Forms.TextBox()
+        Me.bConnectToClient = New System.Windows.Forms.Button()
+        Me.tbServerPort = New System.Windows.Forms.TextBox()
+        Me.bStartServer = New System.Windows.Forms.Button()
+        Me.lSpeed = New System.Windows.Forms.Label()
         Me.SerialSelector1 = New Bwl.Hardware.SimplSerial.SerialSelector()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Button3 = New System.Windows.Forms.Button()
@@ -112,6 +117,7 @@ Partial Class SimplSerialTool
         Me.selectBroadcast = New System.Windows.Forms.RadioButton()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Label12 = New System.Windows.Forms.Label()
+        Me.tNetStateTimer = New System.Windows.Forms.Timer(Me.components)
         Me.DatagridLogWriter1 = New Bwl.Hardware.SimplSerial.DatagridLogWriter()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -872,14 +878,14 @@ Partial Class SimplSerialTool
         Me.reqGuidTextbox.Size = New System.Drawing.Size(229, 21)
         Me.reqGuidTextbox.TabIndex = 12
         '
-        'Label9
+        'lPort
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(6, 24)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(35, 13)
-        Me.Label9.TabIndex = 21
-        Me.Label9.Text = "Порт:"
+        Me.lPort.AutoSize = True
+        Me.lPort.Location = New System.Drawing.Point(6, 24)
+        Me.lPort.Name = "lPort"
+        Me.lPort.Size = New System.Drawing.Size(35, 13)
+        Me.lPort.TabIndex = 21
+        Me.lPort.Text = "Порт:"
         '
         'bootstateTextbox
         '
@@ -908,24 +914,62 @@ Partial Class SimplSerialTool
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.Label19)
+        Me.GroupBox1.Controls.Add(Me.tbClientAddress)
+        Me.GroupBox1.Controls.Add(Me.bConnectToClient)
+        Me.GroupBox1.Controls.Add(Me.tbServerPort)
+        Me.GroupBox1.Controls.Add(Me.bStartServer)
+        Me.GroupBox1.Controls.Add(Me.lSpeed)
         Me.GroupBox1.Controls.Add(Me.SerialSelector1)
-        Me.GroupBox1.Controls.Add(Me.Label9)
+        Me.GroupBox1.Controls.Add(Me.lPort)
         Me.GroupBox1.Location = New System.Drawing.Point(10, 27)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(208, 124)
+        Me.GroupBox1.Size = New System.Drawing.Size(208, 183)
         Me.GroupBox1.TabIndex = 29
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Параметры шины"
         '
-        'Label19
+        'tbClientAddress
         '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(6, 54)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(58, 13)
-        Me.Label19.TabIndex = 22
-        Me.Label19.Text = "Скорость:"
+        Me.tbClientAddress.Location = New System.Drawing.Point(113, 140)
+        Me.tbClientAddress.Name = "tbClientAddress"
+        Me.tbClientAddress.Size = New System.Drawing.Size(89, 20)
+        Me.tbClientAddress.TabIndex = 23
+        Me.tbClientAddress.Text = "localhost:4960"
+        '
+        'bConnectToClient
+        '
+        Me.bConnectToClient.Location = New System.Drawing.Point(3, 140)
+        Me.bConnectToClient.Name = "bConnectToClient"
+        Me.bConnectToClient.Size = New System.Drawing.Size(104, 22)
+        Me.bConnectToClient.TabIndex = 15
+        Me.bConnectToClient.Text = "Подключиться"
+        Me.bConnectToClient.UseVisualStyleBackColor = True
+        '
+        'tbServerPort
+        '
+        Me.tbServerPort.Location = New System.Drawing.Point(149, 112)
+        Me.tbServerPort.Name = "tbServerPort"
+        Me.tbServerPort.Size = New System.Drawing.Size(53, 20)
+        Me.tbServerPort.TabIndex = 0
+        Me.tbServerPort.Text = "4960"
+        '
+        'bStartServer
+        '
+        Me.bStartServer.Location = New System.Drawing.Point(3, 112)
+        Me.bStartServer.Name = "bStartServer"
+        Me.bStartServer.Size = New System.Drawing.Size(140, 22)
+        Me.bStartServer.TabIndex = 14
+        Me.bStartServer.Text = "Запуск сервера"
+        Me.bStartServer.UseVisualStyleBackColor = True
+        '
+        'lSpeed
+        '
+        Me.lSpeed.AutoSize = True
+        Me.lSpeed.Location = New System.Drawing.Point(6, 54)
+        Me.lSpeed.Name = "lSpeed"
+        Me.lSpeed.Size = New System.Drawing.Size(58, 13)
+        Me.lSpeed.TabIndex = 22
+        Me.lSpeed.Text = "Скорость:"
         '
         'SerialSelector1
         '
@@ -936,7 +980,7 @@ Partial Class SimplSerialTool
         Me.SerialSelector1.AssociatedISerialDevice = Nothing
         Me.SerialSelector1.Location = New System.Drawing.Point(65, 24)
         Me.SerialSelector1.Name = "SerialSelector1"
-        Me.SerialSelector1.Size = New System.Drawing.Size(137, 88)
+        Me.SerialSelector1.Size = New System.Drawing.Size(137, 82)
         Me.SerialSelector1.TabIndex = 13
         '
         'GroupBox2
@@ -1025,6 +1069,11 @@ Partial Class SimplSerialTool
         Me.Label12.Size = New System.Drawing.Size(90, 13)
         Me.Label12.TabIndex = 29
         Me.Label12.Text = "Дополнительно:"
+        '
+        'tNetStateTimer
+        '
+        Me.tNetStateTimer.Enabled = True
+        Me.tNetStateTimer.Interval = 500
         '
         'DatagridLogWriter1
         '
@@ -1121,14 +1170,14 @@ Partial Class SimplSerialTool
     Friend WithEvents TabPage5 As System.Windows.Forms.TabPage
     Friend WithEvents searchDevicesResult As System.Windows.Forms.TextBox
     Friend WithEvents _searchingEnabled As System.Windows.Forms.CheckBox
-    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents lPort As System.Windows.Forms.Label
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents bootstateTextbox As System.Windows.Forms.TextBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents addInfoTextbox As System.Windows.Forms.TextBox
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents lSpeed As System.Windows.Forms.Label
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents selectGuid As System.Windows.Forms.RadioButton
     Friend WithEvents selectAddress As System.Windows.Forms.RadioButton
@@ -1180,4 +1229,9 @@ Partial Class SimplSerialTool
     Friend WithEvents rbFast128 As RadioButton
     Friend WithEvents rbFast32 As RadioButton
     Friend WithEvents rbFastOff As RadioButton
+    Friend WithEvents bConnectToClient As Button
+    Friend WithEvents bStartServer As Button
+    Friend WithEvents tbServerPort As TextBox
+    Friend WithEvents tbClientAddress As TextBox
+    Friend WithEvents tNetStateTimer As Timer
 End Class

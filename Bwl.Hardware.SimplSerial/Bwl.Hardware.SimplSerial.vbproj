@@ -87,6 +87,9 @@
     <Compile Include="EmbeddedFw\Logger\LogWriters\Realizations\FormLogInfo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="EmbeddedNet\NetClient.vb" />
+    <Compile Include="EmbeddedNet\NetMessage.vb" />
+    <Compile Include="EmbeddedNet\NetServer.vb" />
     <Compile Include="FirmwareUploader.vb" />
     <Compile Include="EmbeddedFw\Logger\LoggerForm.designer.vb">
       <DependentUpon>LoggerForm.vb</DependentUpon>

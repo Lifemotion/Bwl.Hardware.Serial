@@ -103,6 +103,15 @@
       <Link>EmbeddedFw\FormLogInfo.vb</Link>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedNet\NetClient.vb">
+      <Link>EmbeddedNet\NetClient.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedNet\NetMessage.vb">
+      <Link>EmbeddedNet\NetMessage.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedNet\NetServer.vb">
+      <Link>EmbeddedNet\NetServer.vb</Link>
+    </Compile>
     <Compile Include="..\Bwl.Hardware.SimplSerial\FirmwareUploader.vb">
       <Link>EmbeddedSimplSerial\FirmwareUploader.vb</Link>
     </Compile>
@@ -247,6 +256,7 @@
   <ItemGroup>
     <Content Include="icon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

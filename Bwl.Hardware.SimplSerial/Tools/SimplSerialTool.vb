@@ -45,12 +45,20 @@ Public Class SimplSerialTool
         thread.IsBackground = True
         thread.Name = "SearchingThread"
         thread.Start()
-
+        AddHandler _sserial.NetServerSSRequest, Sub()
+                                                    If _sserial.SerialDevice.IsConnected = False Then
+                                                        Try
+                                                            _logger.AddMessage("Сетевой запрос. Устройство не подключено. Попытка подключения (" + _sserial.SerialDevice.DeviceAddress + ", " + _sserial.SerialDevice.DeviceSpeed.ToString + ")...")
+                                                            _sserial.SerialDevice.Connect()
+                                                        Catch ex As Exception
+                                                        End Try
+                                                    End If
+                                                End Sub
         _form = Me
     End Sub
 
     Public Sub CheckConnected()
-        If _sserial.IsConnected = False Then
+        If _sserial.IsConnected = False And _sserial.NetClientMode = False Then
             _logger.AddMessage("Устройство не подключено. Попытка подключения (" + _sserial.SerialDevice.DeviceAddress + ", " + _sserial.SerialDevice.DeviceSpeed.ToString + ")...")
             Try
                 _sserial.Connect()
@@ -398,5 +406,63 @@ Public Class SimplSerialTool
     Private Sub ЛогToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ЛогToolStripMenuItem.Click
         ' Dim loggerForm = New LoggerForm(_logger)
         ' loggerForm.Show()
+    End Sub
+
+    Private Sub tNetStateTimer_Tick(sender As Object, e As EventArgs) Handles tNetStateTimer.Tick
+        If _sserial.NetServerMode Then
+            bConnectToClient.Enabled = False
+            bStartServer.Text = "Остановка сервера"
+        Else
+            bConnectToClient.Enabled = True
+            bStartServer.Text = "Запуск сервера"
+        End If
+
+        If _sserial.NetClientMode Then
+            bStartServer.Enabled = False
+            bConnectToClient.Text = "Отключиться от"
+            SerialSelector1.Enabled = False
+            SerialSelector1.Visible = False
+            lPort.Visible = False
+            lSpeed.Visible = False
+        Else
+            bStartServer.Enabled = True
+            bConnectToClient.Text = "Подключиться к"
+            SerialSelector1.Enabled = True
+            SerialSelector1.Visible = True
+            lPort.Visible = True
+            lSpeed.Visible = True
+        End If
+
+        If _sserial.NetClientMode Or _sserial.NetServerMode Then
+            tbServerPort.Enabled = False
+            tbClientAddress.Enabled = False
+        Else
+            tbServerPort.Enabled = True
+            tbClientAddress.Enabled = True
+        End If
+    End Sub
+
+    Private Sub bStartServer_Click(sender As Object, e As EventArgs) Handles bStartServer.Click
+        If _sserial.NetServerMode Then
+            _sserial.StopNetServer()
+        Else
+            Try
+                _sserial.StartNetServer(CInt(tbServerPort.Text))
+            Catch ex As Exception
+                MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+            End Try
+        End If
+    End Sub
+
+    Private Sub bConnectToClient_Click(sender As Object, e As EventArgs) Handles bConnectToClient.Click
+        If _sserial.NetClientMode Then
+            _sserial.Disconnect()
+        Else
+            Try
+                _sserial.ConnectViaNet(tbClientAddress.Text)
+            Catch ex As Exception
+                MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+            End Try
+        End If
     End Sub
 End Class

@@ -227,6 +227,29 @@ Public Class FirmwareUpdaterTool
         Dim tool As New SimplSerialTool(_ss)
         tool.Show()
     End Sub
+
+    Private Sub bConnectToClient_Click(sender As Object, e As EventArgs) Handles bConnectToClient.Click
+        If _ss.NetClientMode Then
+            _ss.Disconnect()
+        Else
+            Try
+                _ss.ConnectViaNet(tbClientAddress.Text)
+            Catch ex As Exception
+                MsgBox(ex.Message, MsgBoxStyle.Exclamation)
+            End Try
+        End If
+
+        If _ss.NetClientMode Then
+            SerialSelector1.Visible = False
+            tbClientAddress.Enabled = False
+            bConnectToClient.Text = "Отключиться от"
+        Else
+            SerialSelector1.Visible = True
+            tbClientAddress.Enabled = True
+            bConnectToClient.Text = "Подключиться по сети"
+        End If
+
+    End Sub
 End Class
 
 Public Class FirmwareUpdaterParameters

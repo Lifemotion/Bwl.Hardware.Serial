@@ -25,4 +25,5 @@ Public Enum ResponseState
     errorPacketType
     errorNotRequested
     errorPortError
+    errorNetworkError
 End Enum

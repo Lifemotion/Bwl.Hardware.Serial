@@ -77,19 +77,40 @@ Public Class SimplSerialBus
         _serial.AutoReadBytes = False
     End Sub
 
+    Public Sub New(remoteAddress As String, remotePort As Integer)
+        _serial = New FastSerialPort
+        _clientAddress = remoteAddress
+        _clientPort = remotePort
+    End Sub
+
     Public Sub Connect()
+        Try
+            _clientAddress = Nothing
+            _clientPort = 0
+            _client.Disconnect()
+        Catch ex As Exception
+        End Try
         _serial.Connect()
     End Sub
 
     Public Sub Disconnect()
+        Try
+            _clientAddress = Nothing
+            _clientPort = 0
+            _client.Disconnect()
+        Catch ex As Exception
+        End Try
         _serial.Disconnect()
     End Sub
 
     Public ReadOnly Property IsConnected()
         Get
+            'net mode
+            If NetClientMode Then Return True
             Return _serial.IsConnected
         End Get
     End Property
+
     ''' <summary>
     ''' Устройство последовательной связи.
     ''' </summary>
@@ -101,6 +122,7 @@ Public Class SimplSerialBus
             Return _serial
         End Get
     End Property
+
     Private Sub AddBytes(list As List(Of Byte), val As Byte, crc As Crc16)
         list.Add(val)
         crc.Update(val)
@@ -134,6 +156,8 @@ Public Class SimplSerialBus
     End Function
 
     Public Sub Send(request As SSRequest)
+        'net mode
+        If NetClientMode Then Throw New Exception("Not supported in NetClientMode")
         Dim bytes = MakeRequestBytes(request)
         _serial.Write(bytes.ToArray)
         RaiseEvent Logger("DBG", "SS <- " + request.ToString)
@@ -142,6 +166,8 @@ Public Class SimplSerialBus
     Dim _readLastByte As Byte
 
     Public Function Read() As SSResponse
+        'net mode
+        If NetClientMode Then Throw New Exception("Not supported in NetClientMode")
         SyncLock _syncRoot
             Dim result As New SSResponse
             result.ResponseState = ResponseState.errorNotRequested
@@ -349,7 +375,6 @@ Public Class SimplSerialBus
         For i = 1 To retries - 1
             Dim result = Request(requestPacket)
             If result.ResponseState = ResponseState.ok Then Return result
-            Debug.WriteLine("Retry " + Command.ToString)
             Threading.Thread.Sleep(200)
         Next
         Return Request(requestPacket)
@@ -373,6 +398,9 @@ Public Class SimplSerialBus
     ''' <remarks></remarks>
     Public Function Request(requestPacket As SSRequest) As SSResponse
         SyncLock _syncRoot
+            'net mode
+            If NetClientMode Then Return RequestViaNet(requestPacket)
+
             Dim result As New SSResponse
             SyncLock _serial
                 Try
@@ -563,6 +591,9 @@ Public Class SimplSerialBus
     End Function
 
     Public Function FindDevices(seed As Integer, timeout As Double) As Guid()
+        'net mode
+        If NetClientMode Then Throw New Exception("Not supported in NetClientMode")
+
         Dim bytes = BitConverter.GetBytes(seed)
         SyncLock _syncRoot
             Send(New SSRequest(0, 255, {0, bytes(0), bytes(1), bytes(2), bytes(3)}))
@@ -593,6 +624,120 @@ Public Class SimplSerialBus
         Return FindDevices(randi, 2)
     End Function
 
+    Public Event NetServerSSRequest(req As SSRequest)
+    Private WithEvents _server As New EmbNetServer
+    Private _client As New EmbNetClient
+    Private _clientAddress As String
+    Private _clientPort As String
+
+    Public ReadOnly Property NetServerMode As Boolean
+        Get
+            Return _server.IsWorking()
+        End Get
+    End Property
+
+    Public ReadOnly Property NetClientMode As Boolean
+        Get
+            Return _clientAddress > ""
+        End Get
+    End Property
+
+    Private Sub _server_ReceivedMessage(message As EmbNetMessage, client As EmbConnectedClient) Handles _server.ReceivedMessage
+        Try
+            Select Case message.Part(0)
+                Case "SS-Request"
+                    Dim req As New SSRequest
+                    req.Address = message.PartDouble(1)
+                    req.Command = message.PartDouble(2)
+                    req.Data = message.PartBytes(3)
+                    Dim remoteTimeout = message.PartDouble(4)
+                    Dim localTimeout = RequestTimeout
+                    RaiseEvent NetServerSSRequest(req)
+                    Dim result As SSResponse = Nothing
+                    Try
+                        If remoteTimeout > RequestTimeout Then RequestTimeout = remoteTimeout
+                        result = Request(req)
+                    Catch ex As Exception
+                        result = New SSResponse
+                        result.ResponseState = ResponseState.errorPortError
+                    End Try
+                    RequestTimeout = localTimeout
+                    Dim answer = New EmbNetMessage("S", "SS-Request-Result")
+                    answer.Part(1) = result.FromAddress.ToString
+                    answer.Part(2) = result.Result.ToString
+                    answer.PartBytes(3) = result.Data
+                    answer.Part(4) = result.ResponseState.ToString
+                    Try
+                        client.SendMessage(answer)
+                    Catch ex As Exception
+                    End Try
+            End Select
+        Catch ex As Exception
+            RaiseEvent Logger("ERR", "NetServer Error: " + ex.Message)
+        End Try
+    End Sub
+
+    Private Function RequestViaNet(requestPacket As SSRequest) As SSResponse
+        Dim msg As New EmbNetMessage("S", "SS-Request")
+        msg.Part(1) = requestPacket.Address.ToString
+        msg.Part(2) = requestPacket.Command.ToString
+        msg.PartBytes(3) = requestPacket.Data
+        msg.Part(4) = RequestTimeout
+        Dim answer As EmbNetMessage = Nothing
+        Try
+            If _client.IsConnected = False Then _client.Connect(_clientAddress, _clientPort)
+            answer = _client.SendMessageWaitAnswer(msg, "SS-Request-Result", 10)
+        Catch ex As Exception
+        End Try
+        Dim resp As New SSResponse
+        If answer Is Nothing Then
+            resp.ResponseState = ResponseState.errorNetworkError
+        Else
+            resp.FromAddress = answer.PartDouble(1)
+            resp.Result = answer.PartDouble(2)
+            resp.Data = answer.PartBytes(3)
+            Select Case answer.Part(4)
+                Case "ok" : resp.ResponseState = ResponseState.ok
+                Case "errorFormat" : resp.ResponseState = ResponseState.errorFormat
+                Case "errorNotRequested" : resp.ResponseState = ResponseState.errorNotRequested
+                Case "errorPacketType" : resp.ResponseState = ResponseState.errorPacketType
+                Case "errorPortError" : resp.ResponseState = ResponseState.errorPortError
+                Case "errorTimeout" : resp.ResponseState = ResponseState.errorTimeout
+                Case "errorCrc" : resp.ResponseState = ResponseState.errorCrc
+            End Select
+        End If
+        Return resp
+    End Function
+
+    Public Sub ConnectViaNet(addressPort As String)
+        Dim parts = addressPort.Split(":")
+        If parts.Length <> 2 OrElse IsNumeric(parts(1)) = False Then Throw New Exception("Address must be in host:port format")
+        ConnectViaNet(parts(0), CInt(parts(1)))
+    End Sub
+
+    Public Sub ConnectViaNet(address As String, port As String)
+        If NetServerMode Then Throw New Exception("Already in NetServerMode")
+        Disconnect()
+        _clientAddress = address
+        _clientPort = port
+        Try
+            _client.Connect(_clientAddress, _clientPort)
+        Catch ex As Exception
+            _clientAddress = ""
+            _clientPort = 0
+            Throw ex
+        End Try
+    End Sub
+
+    Public Sub StartNetServer(port As Integer)
+        If NetClientMode Then Throw New Exception("Already in NetClientMode")
+        If NetServerMode Then Throw New Exception("Already in NetServerMode")
+        _server.StartServer(port, False)
+    End Sub
+
+    Public Sub StopNetServer()
+        _server.StopServer()
+    End Sub
 End Class
 
 

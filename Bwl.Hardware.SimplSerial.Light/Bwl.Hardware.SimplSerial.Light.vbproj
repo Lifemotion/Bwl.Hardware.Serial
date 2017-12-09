@@ -65,6 +65,15 @@
     <Compile Include="..\bwl.Hardware.Serial\Serial\FastSerialPort.vb">
       <Link>Serial\FastSerialPort.vb</Link>
     </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedNet\NetClient.vb">
+      <Link>Net\NetClient.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedNet\NetMessage.vb">
+      <Link>Net\NetMessage.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedNet\NetServer.vb">
+      <Link>Net\NetServer.vb</Link>
+    </Compile>
     <Compile Include="..\Bwl.Hardware.SimplSerial\FirmwareUploader.vb">
       <Link>SimplSerial\FirmwareUploader.vb</Link>
     </Compile>
