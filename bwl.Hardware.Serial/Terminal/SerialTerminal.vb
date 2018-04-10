@@ -62,7 +62,7 @@
     End Sub
 
     Private Sub input_KeyUp(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles input.KeyDown
-        If e.KeyCode = Windows.Forms.Keys.Enter Then
+        If e.KeyCode = System.Windows.Forms.Keys.Enter Then
             e.SuppressKeyPress = True
             Dim text = input.Text
             Dim bytes As Byte() = System.Text.Encoding.GetEncoding(1251).GetBytes(text)
