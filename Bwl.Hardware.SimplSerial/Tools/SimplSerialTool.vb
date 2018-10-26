@@ -98,8 +98,12 @@ Public Class SimplSerialTool
                             End If
                         End If
                         addInfoTextbox.Text = "SimplSerial: " + info.ProtocolVersion
+                        If info.Signature > "" Then addInfoTextbox.Text += ", Signature: " + info.Signature
+                        If info.Fuses > "" Then addInfoTextbox.Text += ", Fuses: " + info.Fuses
+                        If info.Lock > "" Then addInfoTextbox.Text += ", Lock: " + info.Lock
+                        If info.ChipSerialNumber > 0 Then addInfoTextbox.Text += ", ChipSN: " + info.ChipSerialNumber.ToString
                     Else
-                        Throw New Exception(info.Response.ResponseState.ToString)
+                            Throw New Exception(info.Response.ResponseState.ToString)
                     End If
                 End Sub)
     End Sub
@@ -121,6 +125,10 @@ Public Class SimplSerialTool
         If selectGuid.Checked Then
             address = _rnd.Next(1, 30000)
             _sserial.RequestSetAddress(Guid.Parse(reqGuidTextbox.Text), address)
+        End If
+        If selectChipSn.Checked Then
+            address = _rnd.Next(1, 30000)
+            _sserial.RequestSetAddress(UInt64.Parse(reqChipSnTextbox.Text), address)
         End If
         Return address
     End Function
@@ -175,7 +183,8 @@ Public Class SimplSerialTool
                     _flasher.RequestBootInfo(GetAddress())
                     spmSizeTextbox.Text = _flasher.SpmSize.ToString
                     progmemSizeTextbox.Text = _flasher.ProgmemSize.ToString
-                    signature.Text = _flasher.Signature
+                    'signature.Text = _flasher.Signature
+                    ' tbFuses.Text = _flasher.Fuses
                 End Sub)
     End Sub
 
@@ -464,5 +473,9 @@ Public Class SimplSerialTool
                 MsgBox(ex.Message, MsgBoxStyle.Exclamation)
             End Try
         End If
+    End Sub
+
+    Private Sub reqBootInfoButton_Click(sender As Object, e As EventArgs) Handles reqBootInfoButton.Click
+
     End Sub
 End Class

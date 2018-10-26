@@ -15,7 +15,8 @@
 
     Public Property SpmSize As Integer
     Public Property ProgmemSize As Integer
-    Public Property Signature As String = ""
+    'Public Property Signature As String = ""
+    'Public Property Fuses As String = ""
 
     Public Sub EraseAll(address As Integer)
         Dim spm = SpmSize
@@ -110,10 +111,14 @@
         If info.ResponseState = ResponseState.ok Then
             Dim spm = info.Data(16) * 256 + info.Data(17)
             Dim pgmsize = info.Data(18) * 256 * 256 + info.Data(19) * 256 + info.Data(10)
-            Dim sign = info.Data(11) * 256 * 256 + info.Data(13) * 256 + info.Data(5)
+            'Dim sign = info.Data(0) * 256 * 256 + info.Data(1) * 256 + info.Data(2)
             SpmSize = spm
             ProgmemSize = Math.Floor(pgmsize / SpmSize) * SpmSize
-            Signature = Hex(sign)
+            'Signature = "0x" + Hex(sign)
+            'Select Case Signature
+            'Case "0x1E9511" : Signature += "," + "ATmega324PA"
+            'End Select
+            'Fuses = "0x" + Hex(info.Data(3)) + "," + "0x" + Hex(info.Data(6)) + "," + "0x" + Hex(info.Data(5)) + "//L,H,E"
         Else
             Throw New Exception(info.ResponseState.ToString)
         End If

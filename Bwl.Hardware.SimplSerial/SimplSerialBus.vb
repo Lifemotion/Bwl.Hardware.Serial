@@ -538,6 +538,17 @@ Public Class SimplSerialBus
         Throw New Exception("RequestSetAddress: bad response: " + result.ResponseState.ToString + " " + result.Result.ToString)
     End Sub
 
+    Public Sub RequestSetAddress(chipsn As UInt64, address As Integer)
+        Dim bytes = New List(Of Byte)
+        bytes.AddRange({170, 170, 170, 170})
+        bytes.AddRange({170, 170, 170, 170})
+        bytes.AddRange(BitConverter.GetBytes(chipsn))
+        bytes.AddRange(UInt16ToBytes(address))
+        Dim result = Request(New SSRequest(0, 253, bytes.ToArray), RequestRetriesDefault)
+        If result.ResponseState = ResponseState.ok AndAlso result.Result = 0 Then Return
+        Throw New Exception("RequestSetAddress: bad response: " + result.ResponseState.ToString + " " + result.Result.ToString)
+    End Sub
+
     Public Sub RequestRestart(address As Integer)
         Dim result = Request(New SSRequest(address, 251, {255}), RequestRetriesDefault)
         If result.ResponseState = ResponseState.ok AndAlso result.Result = 0 Then Return
@@ -580,13 +591,24 @@ Public Class SimplSerialBus
                     info.BootName = ascii.GetString(result.Data, 54, 16).Replace(vbNullChar, "").Trim
                     info.ProtocolVersion = ascii.GetString(result.Data, 70, 6).Replace(vbNullChar, "").Trim
                 End If
-                If info.DeviceName.StartsWith("BwlBoot") Then
-                    info.BootloaderMode = True
-                    info.BootName = info.DeviceName.Substring(0, 16).Replace(vbNullChar, "").Trim.Replace(":", "")
+                If result.Data.Length >= 95 Then
+                    Dim sign = result.Data(80) * 256 * 256 + result.Data(81) * 256 + result.Data(82)
+                    info.Signature = "0x" + Hex(sign)
+                    Select Case info.Signature
+                        Case "0x1E9511" : info.Signature += "," + "ATmega324PA"
+                    End Select
+                    info.Fuses = "0x" + Hex(result.Data(83)) + "," + "0x" + Hex(result.Data(86)) + "," + "0x" + Hex(result.Data(85)) + "//L,H,E"
+                    Dim chipid = BitConverter.ToUInt64(result.Data, 87)
+                    info.ChipSerialNumber = chipid
                 End If
-                Return info
+
+                If info.DeviceName.StartsWith("BwlBoot") Then
+                        info.BootloaderMode = True
+                        info.BootName = info.DeviceName.Substring(0, 16).Replace(vbNullChar, "").Trim.Replace(":", "")
+                    End If
+                    Return info
+                End If
             End If
-        End If
         Return info
     End Function
 

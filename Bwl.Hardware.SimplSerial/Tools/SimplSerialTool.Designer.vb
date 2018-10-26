@@ -27,8 +27,6 @@ Partial Class SimplSerialTool
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
-        Me.signature = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.progmemSizeTextbox = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.reqBootInfoButton = New System.Windows.Forms.Button()
@@ -119,6 +117,8 @@ Partial Class SimplSerialTool
         Me.Label12 = New System.Windows.Forms.Label()
         Me.tNetStateTimer = New System.Windows.Forms.Timer(Me.components)
         Me.DatagridLogWriter1 = New Bwl.Hardware.SimplSerial.DatagridLogWriter()
+        Me.selectChipSn = New System.Windows.Forms.RadioButton()
+        Me.reqChipSnTextbox = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
@@ -166,8 +166,6 @@ Partial Class SimplSerialTool
         '
         'GroupBox7
         '
-        Me.GroupBox7.Controls.Add(Me.signature)
-        Me.GroupBox7.Controls.Add(Me.Label7)
         Me.GroupBox7.Controls.Add(Me.progmemSizeTextbox)
         Me.GroupBox7.Controls.Add(Me.Label6)
         Me.GroupBox7.Controls.Add(Me.reqBootInfoButton)
@@ -180,37 +178,19 @@ Partial Class SimplSerialTool
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Техническая информация загрузчика"
         '
-        'signature
-        '
-        Me.signature.Location = New System.Drawing.Point(387, 19)
-        Me.signature.Name = "signature"
-        Me.signature.ReadOnly = True
-        Me.signature.Size = New System.Drawing.Size(87, 20)
-        Me.signature.TabIndex = 20
-        Me.signature.Text = "0"
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(331, 23)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(52, 13)
-        Me.Label7.TabIndex = 22
-        Me.Label7.Text = "Signature"
-        '
         'progmemSizeTextbox
         '
-        Me.progmemSizeTextbox.Location = New System.Drawing.Point(235, 19)
+        Me.progmemSizeTextbox.Location = New System.Drawing.Point(180, 20)
         Me.progmemSizeTextbox.Name = "progmemSizeTextbox"
         Me.progmemSizeTextbox.ReadOnly = True
-        Me.progmemSizeTextbox.Size = New System.Drawing.Size(87, 20)
+        Me.progmemSizeTextbox.Size = New System.Drawing.Size(74, 20)
         Me.progmemSizeTextbox.TabIndex = 21
         Me.progmemSizeTextbox.Text = "0"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(147, 23)
+        Me.Label6.Location = New System.Drawing.Point(97, 23)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(84, 13)
         Me.Label6.TabIndex = 23
@@ -218,9 +198,9 @@ Partial Class SimplSerialTool
         '
         'reqBootInfoButton
         '
-        Me.reqBootInfoButton.Location = New System.Drawing.Point(478, 18)
+        Me.reqBootInfoButton.Location = New System.Drawing.Point(446, 18)
         Me.reqBootInfoButton.Name = "reqBootInfoButton"
-        Me.reqBootInfoButton.Size = New System.Drawing.Size(159, 21)
+        Me.reqBootInfoButton.Size = New System.Drawing.Size(191, 21)
         Me.reqBootInfoButton.TabIndex = 17
         Me.reqBootInfoButton.Text = "Запрос информации"
         Me.reqBootInfoButton.UseVisualStyleBackColor = True
@@ -230,7 +210,7 @@ Partial Class SimplSerialTool
         Me.spmSizeTextbox.Location = New System.Drawing.Point(59, 19)
         Me.spmSizeTextbox.Name = "spmSizeTextbox"
         Me.spmSizeTextbox.ReadOnly = True
-        Me.spmSizeTextbox.Size = New System.Drawing.Size(87, 20)
+        Me.spmSizeTextbox.Size = New System.Drawing.Size(37, 20)
         Me.spmSizeTextbox.TabIndex = 18
         Me.spmSizeTextbox.Text = "0"
         '
@@ -297,7 +277,7 @@ Partial Class SimplSerialTool
         '
         Me.Label11.Location = New System.Drawing.Point(5, 57)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(630, 43)
+        Me.Label11.Size = New System.Drawing.Size(638, 43)
         Me.Label11.TabIndex = 27
         Me.Label11.Text = resources.GetString("Label11.Text")
         '
@@ -798,20 +778,20 @@ Partial Class SimplSerialTool
         '
         'reqAddressTextbox
         '
-        Me.reqAddressTextbox.Location = New System.Drawing.Point(10, 67)
+        Me.reqAddressTextbox.Location = New System.Drawing.Point(187, 37)
         Me.reqAddressTextbox.Multiline = True
         Me.reqAddressTextbox.Name = "reqAddressTextbox"
-        Me.reqAddressTextbox.Size = New System.Drawing.Size(230, 21)
+        Me.reqAddressTextbox.Size = New System.Drawing.Size(54, 21)
         Me.reqAddressTextbox.TabIndex = 5
         Me.reqAddressTextbox.Text = "0"
         '
         'getDevInfoButton
         '
-        Me.getDevInfoButton.Location = New System.Drawing.Point(100, 147)
+        Me.getDevInfoButton.Location = New System.Drawing.Point(8, 147)
         Me.getDevInfoButton.Name = "getDevInfoButton"
-        Me.getDevInfoButton.Size = New System.Drawing.Size(308, 22)
+        Me.getDevInfoButton.Size = New System.Drawing.Size(88, 22)
         Me.getDevInfoButton.TabIndex = 4
-        Me.getDevInfoButton.Text = "Запрос информации"
+        Me.getDevInfoButton.Text = "Обновить"
         Me.getDevInfoButton.UseVisualStyleBackColor = True
         '
         'Label2
@@ -872,10 +852,10 @@ Partial Class SimplSerialTool
         '
         'reqGuidTextbox
         '
-        Me.reqGuidTextbox.Location = New System.Drawing.Point(10, 119)
+        Me.reqGuidTextbox.Location = New System.Drawing.Point(8, 79)
         Me.reqGuidTextbox.Multiline = True
         Me.reqGuidTextbox.Name = "reqGuidTextbox"
-        Me.reqGuidTextbox.Size = New System.Drawing.Size(229, 21)
+        Me.reqGuidTextbox.Size = New System.Drawing.Size(232, 21)
         Me.reqGuidTextbox.TabIndex = 12
         '
         'lPort
@@ -889,7 +869,7 @@ Partial Class SimplSerialTool
         '
         'bootstateTextbox
         '
-        Me.bootstateTextbox.Location = New System.Drawing.Point(101, 121)
+        Me.bootstateTextbox.Location = New System.Drawing.Point(101, 96)
         Me.bootstateTextbox.Name = "bootstateTextbox"
         Me.bootstateTextbox.ReadOnly = True
         Me.bootstateTextbox.Size = New System.Drawing.Size(307, 20)
@@ -898,7 +878,7 @@ Partial Class SimplSerialTool
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(7, 125)
+        Me.Label18.Location = New System.Drawing.Point(7, 100)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(62, 13)
         Me.Label18.TabIndex = 27
@@ -906,10 +886,11 @@ Partial Class SimplSerialTool
         '
         'addInfoTextbox
         '
-        Me.addInfoTextbox.Location = New System.Drawing.Point(101, 95)
+        Me.addInfoTextbox.Location = New System.Drawing.Point(101, 122)
+        Me.addInfoTextbox.Multiline = True
         Me.addInfoTextbox.Name = "addInfoTextbox"
         Me.addInfoTextbox.ReadOnly = True
-        Me.addInfoTextbox.Size = New System.Drawing.Size(307, 20)
+        Me.addInfoTextbox.Size = New System.Drawing.Size(307, 47)
         Me.addInfoTextbox.TabIndex = 28
         '
         'GroupBox1
@@ -985,6 +966,8 @@ Partial Class SimplSerialTool
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.selectChipSn)
+        Me.GroupBox2.Controls.Add(Me.reqChipSnTextbox)
         Me.GroupBox2.Controls.Add(Me.Button3)
         Me.GroupBox2.Controls.Add(Me.selectGuid)
         Me.GroupBox2.Controls.Add(Me.selectAddress)
@@ -1000,9 +983,9 @@ Partial Class SimplSerialTool
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(8, 147)
+        Me.Button3.Location = New System.Drawing.Point(7, 147)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(232, 22)
+        Me.Button3.Size = New System.Drawing.Size(233, 22)
         Me.Button3.TabIndex = 13
         Me.Button3.Text = "Проверка"
         Me.Button3.UseVisualStyleBackColor = True
@@ -1010,7 +993,7 @@ Partial Class SimplSerialTool
         'selectGuid
         '
         Me.selectGuid.AutoSize = True
-        Me.selectGuid.Location = New System.Drawing.Point(9, 95)
+        Me.selectGuid.Location = New System.Drawing.Point(8, 59)
         Me.selectGuid.Name = "selectGuid"
         Me.selectGuid.Size = New System.Drawing.Size(233, 17)
         Me.selectGuid.TabIndex = 2
@@ -1020,18 +1003,18 @@ Partial Class SimplSerialTool
         'selectAddress
         '
         Me.selectAddress.AutoSize = True
-        Me.selectAddress.Location = New System.Drawing.Point(9, 43)
+        Me.selectAddress.Location = New System.Drawing.Point(8, 38)
         Me.selectAddress.Name = "selectAddress"
-        Me.selectAddress.Size = New System.Drawing.Size(179, 17)
+        Me.selectAddress.Size = New System.Drawing.Size(131, 17)
         Me.selectAddress.TabIndex = 1
-        Me.selectAddress.Text = "По рабочему адресу (1-65536):"
+        Me.selectAddress.Text = "По рабочему адресу:"
         Me.selectAddress.UseVisualStyleBackColor = True
         '
         'selectBroadcast
         '
         Me.selectBroadcast.AutoSize = True
         Me.selectBroadcast.Checked = True
-        Me.selectBroadcast.Location = New System.Drawing.Point(9, 19)
+        Me.selectBroadcast.Location = New System.Drawing.Point(8, 17)
         Me.selectBroadcast.Name = "selectBroadcast"
         Me.selectBroadcast.Size = New System.Drawing.Size(141, 17)
         Me.selectBroadcast.TabIndex = 0
@@ -1064,7 +1047,7 @@ Partial Class SimplSerialTool
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(7, 99)
+        Me.Label12.Location = New System.Drawing.Point(7, 126)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(90, 13)
         Me.Label12.TabIndex = 29
@@ -1093,6 +1076,24 @@ Partial Class SimplSerialTool
         Me.DatagridLogWriter1.ShowWarnings = True
         Me.DatagridLogWriter1.Size = New System.Drawing.Size(915, 254)
         Me.DatagridLogWriter1.TabIndex = 10
+        '
+        'selectChipSn
+        '
+        Me.selectChipSn.AutoSize = True
+        Me.selectChipSn.Location = New System.Drawing.Point(8, 101)
+        Me.selectChipSn.Name = "selectChipSn"
+        Me.selectChipSn.Size = New System.Drawing.Size(209, 17)
+        Me.selectChipSn.TabIndex = 14
+        Me.selectChipSn.Text = "По аппаратному серийному номеру:"
+        Me.selectChipSn.UseVisualStyleBackColor = True
+        '
+        'reqChipSnTextbox
+        '
+        Me.reqChipSnTextbox.Location = New System.Drawing.Point(8, 120)
+        Me.reqChipSnTextbox.Multiline = True
+        Me.reqChipSnTextbox.Name = "reqChipSnTextbox"
+        Me.reqChipSnTextbox.Size = New System.Drawing.Size(232, 21)
+        Me.reqChipSnTextbox.TabIndex = 15
         '
         'SimplSerialTool
         '
@@ -1186,8 +1187,6 @@ Partial Class SimplSerialTool
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents GroupBox7 As System.Windows.Forms.GroupBox
-    Friend WithEvents signature As System.Windows.Forms.TextBox
-    Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents progmemSizeTextbox As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents reqBootInfoButton As System.Windows.Forms.Button
@@ -1234,4 +1233,6 @@ Partial Class SimplSerialTool
     Friend WithEvents tbServerPort As TextBox
     Friend WithEvents tbClientAddress As TextBox
     Friend WithEvents tNetStateTimer As Timer
+    Friend WithEvents selectChipSn As RadioButton
+    Friend WithEvents reqChipSnTextbox As TextBox
 End Class

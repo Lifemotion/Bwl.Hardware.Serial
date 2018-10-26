@@ -50,9 +50,9 @@ Partial Class FirmwareUpdaterTool
         Me.bFindDevice = New System.Windows.Forms.Button()
         Me.SerialSelector1 = New Bwl.Hardware.SimplSerial.SerialSelector()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.bSimplSerialTool = New System.Windows.Forms.Button()
         Me.tbClientAddress = New System.Windows.Forms.TextBox()
         Me.bConnectToClient = New System.Windows.Forms.Button()
+        Me.bSimplSerialTool = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -278,7 +278,8 @@ Partial Class FirmwareUpdaterTool
         '
         'DatagridLogWriter1
         '
-        Me.DatagridLogWriter1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.DatagridLogWriter1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DatagridLogWriter1.ExtendedView = True
         Me.DatagridLogWriter1.FilterText = ""
@@ -291,7 +292,7 @@ Partial Class FirmwareUpdaterTool
         Me.DatagridLogWriter1.ShowInformation = True
         Me.DatagridLogWriter1.ShowMessages = True
         Me.DatagridLogWriter1.ShowWarnings = True
-        Me.DatagridLogWriter1.Size = New System.Drawing.Size(742, 150)
+        Me.DatagridLogWriter1.Size = New System.Drawing.Size(741, 221)
         Me.DatagridLogWriter1.TabIndex = 12
         '
         'bFindDevice
@@ -327,15 +328,6 @@ Partial Class FirmwareUpdaterTool
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Подключение"
         '
-        'bSimplSerialTool
-        '
-        Me.bSimplSerialTool.Location = New System.Drawing.Point(526, 219)
-        Me.bSimplSerialTool.Name = "bSimplSerialTool"
-        Me.bSimplSerialTool.Size = New System.Drawing.Size(206, 23)
-        Me.bSimplSerialTool.TabIndex = 14
-        Me.bSimplSerialTool.Text = "SimplSerial Tool"
-        Me.bSimplSerialTool.UseVisualStyleBackColor = True
-        '
         'tbClientAddress
         '
         Me.tbClientAddress.Location = New System.Drawing.Point(7, 168)
@@ -353,11 +345,20 @@ Partial Class FirmwareUpdaterTool
         Me.bConnectToClient.Text = "Подключиться по сети"
         Me.bConnectToClient.UseVisualStyleBackColor = True
         '
+        'bSimplSerialTool
+        '
+        Me.bSimplSerialTool.Location = New System.Drawing.Point(526, 219)
+        Me.bSimplSerialTool.Name = "bSimplSerialTool"
+        Me.bSimplSerialTool.Size = New System.Drawing.Size(206, 23)
+        Me.bSimplSerialTool.TabIndex = 14
+        Me.bSimplSerialTool.Text = "SimplSerial Tool"
+        Me.bSimplSerialTool.UseVisualStyleBackColor = True
+        '
         'FirmwareUpdaterTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(744, 401)
+        Me.ClientSize = New System.Drawing.Size(743, 472)
         Me.Controls.Add(Me.bSimplSerialTool)
         Me.Controls.Add(Me.bFindDevice)
         Me.Controls.Add(Me.DatagridLogWriter1)

@@ -7,4 +7,9 @@ Public Class DeviceInfo
     Property ProtocolVersion As String = ""
     Property DeviceGuid As Guid
     Property BootloaderMode As Boolean = False
+
+    Property Signature As String = ""
+    Property Fuses As String = ""
+    Property Lock As String = ""
+    Property ChipSerialNumber As UInt64
 End Class
