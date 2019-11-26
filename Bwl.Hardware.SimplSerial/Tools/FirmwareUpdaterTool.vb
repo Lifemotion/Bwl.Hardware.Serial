@@ -250,6 +250,18 @@ Public Class FirmwareUpdaterTool
         End If
 
     End Sub
+
+    Private Sub bSaveFirmwareToFile_Click(sender As Object, e As EventArgs) Handles bSaveFirmwareToFile.Click
+        Dim dlg As New SaveFileDialog
+        dlg.Filter = "BIN|*.bin"
+        If dlg.ShowDialog = System.Windows.Forms.DialogResult.OK Then
+            Try
+                IO.File.WriteAllBytes(dlg.FileName, _fwBin)
+            Catch ex As Exception
+                MsgBox(ex.Message, MsgBoxStyle.Critical)
+            End Try
+        End If
+    End Sub
 End Class
 
 Public Class FirmwareUpdaterParameters

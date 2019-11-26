@@ -53,6 +53,7 @@ Partial Class FirmwareUpdaterTool
         Me.tbClientAddress = New System.Windows.Forms.TextBox()
         Me.bConnectToClient = New System.Windows.Forms.Button()
         Me.bSimplSerialTool = New System.Windows.Forms.Button()
+        Me.bSaveFirmwareToFile = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -127,6 +128,7 @@ Partial Class FirmwareUpdaterTool
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.bSaveFirmwareToFile)
         Me.GroupBox2.Controls.Add(Me.tbUpdateFile)
         Me.GroupBox2.Controls.Add(Me.Label5)
         Me.GroupBox2.Controls.Add(Me.Label6)
@@ -354,6 +356,15 @@ Partial Class FirmwareUpdaterTool
         Me.bSimplSerialTool.Text = "SimplSerial Tool"
         Me.bSimplSerialTool.UseVisualStyleBackColor = True
         '
+        'bSaveFirmwareToFile
+        '
+        Me.bSaveFirmwareToFile.Location = New System.Drawing.Point(119, 71)
+        Me.bSaveFirmwareToFile.Name = "bSaveFirmwareToFile"
+        Me.bSaveFirmwareToFile.Size = New System.Drawing.Size(200, 26)
+        Me.bSaveFirmwareToFile.TabIndex = 14
+        Me.bSaveFirmwareToFile.Text = "Сохранить прошивку в файл"
+        Me.bSaveFirmwareToFile.UseVisualStyleBackColor = True
+        '
         'FirmwareUpdaterTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -413,4 +424,5 @@ Partial Class FirmwareUpdaterTool
     Friend WithEvents bSimplSerialTool As Button
     Friend WithEvents tbClientAddress As TextBox
     Friend WithEvents bConnectToClient As Button
+    Friend WithEvents bSaveFirmwareToFile As Button
 End Class
