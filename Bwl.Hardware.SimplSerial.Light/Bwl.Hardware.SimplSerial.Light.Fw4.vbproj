@@ -1,16 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
-    <SchemaVersion>
-    </SchemaVersion>
-    <ProjectGuid>{67F961E9-AAD0-4FBB-AD02-F854BEABF993}</ProjectGuid>
+    <ProjectGuid>{8E4A6915-A66B-4021-A40C-59FF6B36E56C}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Bwl.Hardware.Serial</RootNamespace>
-    <AssemblyName>Bwl.Hardware.Serial</AssemblyName>
+    <RootNamespace>Bwl.Hardware.SimplSerial.Light</RootNamespace>
+    <AssemblyName>Bwl.Hardware.SimplSerial.Light</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -21,22 +18,18 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>..\debug\dll-mono\</OutputPath>
-    <DocumentationFile>Bwl.Hardware.Serial.xml</DocumentationFile>
+    <OutputPath>..\debug\simplserial-light-fw4\</OutputPath>
+    <DocumentationFile>Bwl.Hardware.SimplSerial.Light.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <PlatformTarget>x86</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
-    <OutputPath>..\release\dll-mono\</OutputPath>
-    <DocumentationFile>Bwl.Hardware.Serial.xml</DocumentationFile>
+    <OutputPath>..\release\simplserial-light-fw4\</OutputPath>
+    <DocumentationFile>Bwl.Hardware.SimplSerial.Light.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <PlatformTarget>x86</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -52,25 +45,65 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />
-    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\ISerialDevice.vb" />
-    <Compile Include="Interfaces\ISerialDeviceSence.vb" />
-    <Compile Include="Interfaces\ISerialDeviceSignals.vb" />
-    <Compile Include="Base\SerialDevice.vb" />
+    <Compile Include="..\bwl.Hardware.Serial\Interfaces\ISerialDevice.vb">
+      <Link>Serial\ISerialDevice.vb</Link>
+    </Compile>
+    <Compile Include="..\bwl.Hardware.Serial\Interfaces\ISerialDeviceSence.vb">
+      <Link>Serial\ISerialDeviceSence.vb</Link>
+    </Compile>
+    <Compile Include="..\bwl.Hardware.Serial\Interfaces\ISerialDeviceSignals.vb">
+      <Link>Serial\ISerialDeviceSignals.vb</Link>
+    </Compile>
+    <Compile Include="..\bwl.Hardware.Serial\Serial\FastSerialPort.vb">
+      <Link>Serial\FastSerialPort.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedNet\NetClient.vb">
+      <Link>Net\NetClient.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedNet\NetMessage.vb">
+      <Link>Net\NetMessage.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\EmbeddedNet\NetServer.vb">
+      <Link>Net\NetServer.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\FirmwareUploader.vb">
+      <Link>SimplSerial\FirmwareUploader.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Results\DeviceInfo.vb">
+      <Link>SimplSerial\Results\DeviceInfo.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Results\SSRequest.vb">
+      <Link>SimplSerial\Results\SSRequest.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Results\SSResponse.vb">
+      <Link>SimplSerial\Results\SSResponse.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\SimplSerialBus.vb">
+      <Link>SimplSerial\SimplSerialBus.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\SimplSerialManager.vb">
+      <Link>SimplSerial\SimplSerialManager.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\Crc16.vb">
+      <Link>SimplSerial\Tools\Crc16.vb</Link>
+    </Compile>
+    <Compile Include="..\Bwl.Hardware.SimplSerial\Tools\HexToBinConverter.vb">
+      <Link>SimplSerial\Tools\HexToBinConverter.vb</Link>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -82,27 +115,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Emulator\SerialEmulator.vb" />
-    <Compile Include="Serial\FastSerialPort.vb" />
-    <Compile Include="Serial\SerialPort.vb" />
-    <Compile Include="Terminal\Terminal.Designer.vb">
-      <DependentUpon>Terminal.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Terminal\Terminal.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Terminal\SerialTerminal.Designer.vb">
-      <DependentUpon>SerialTerminal.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Terminal\SerialTerminal.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Visualiser\SerialVisualiser.Designer.vb">
-      <DependentUpon>SerialVisualiser.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Visualiser\SerialVisualiser.vb">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -110,15 +122,6 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Terminal\Terminal.resx">
-      <DependentUpon>Terminal.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Terminal\SerialTerminal.resx">
-      <DependentUpon>SerialTerminal.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Visualiser\SerialVisualiser.resx">
-      <DependentUpon>SerialVisualiser.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -132,15 +135,5 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
