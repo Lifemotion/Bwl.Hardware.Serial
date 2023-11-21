@@ -2,6 +2,7 @@
 #Disable Warning BC40056 ' Пространство имен или тип, указанный в операторе Imports, не содержит открытый член, или невозможно найти пространство имен или тип
 Imports Bwl.Hardware.Serial
 #Enable Warning BC40056 ' Пространство имен или тип, указанный в операторе Imports, не содержит открытый член, или невозможно найти пространство имен или тип
+
 ''' <summary>
 ''' Реализация базового интерфейса шины SimplSerial.
 ''' </summary>
@@ -103,7 +104,7 @@ Public Class SimplSerialBus
         _serial.Disconnect()
     End Sub
 
-    Public ReadOnly Property IsConnected()
+    Public ReadOnly Property IsConnected() As Boolean
         Get
             'net mode
             If NetClientMode Then Return True
@@ -369,7 +370,7 @@ Public Class SimplSerialBus
         If resp.ResponseState <> ResponseState.ok Then Throw New Exception(resp.ResponseState.ToString)
     End Sub
 
-    Public Property RequestRetriesDefault = 1
+    Public Property RequestRetriesDefault As Integer = 1
 
     Function Request(requestPacket As SSRequest, retries As Integer) As SSResponse
         For i = 1 To retries - 1
@@ -560,11 +561,13 @@ Public Class SimplSerialBus
         If result.ResponseState = ResponseState.ok AndAlso result.Result = 0 Then Return
         Throw New Exception("RequestGoToBootloader: bad response: " + result.ResponseState.ToString + " " + result.Result.ToString)
     End Sub
+
     Public Sub RequestGoToMain(address As Integer)
         Dim result = Request(New SSRequest(address, 251, {1}), RequestRetriesDefault)
         If result.ResponseState = ResponseState.ok AndAlso result.Result = 0 Then Return
         Throw New Exception("RequestGoToMain: bad response: " + result.ResponseState.ToString + " " + result.Result.ToString)
     End Sub
+
     ''' <summary>
     ''' Запросить базовую информацию устройства (команда 120).
     ''' </summary>
